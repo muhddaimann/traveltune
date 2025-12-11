@@ -10,6 +10,7 @@ import {
 } from "@expo-google-fonts/poppins";
 import { PaperProvider } from "react-native-paper";
 import { ThemeProvider, useAppTheme } from "../contexts/themeContext";
+import { DesignProvider } from "../contexts/designContext";
 
 function Providers() {
   const { theme } = useAppTheme();
@@ -46,7 +47,9 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <Providers />
+        <DesignProvider>
+          <Providers />
+        </DesignProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
