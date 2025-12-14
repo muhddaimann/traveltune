@@ -1,12 +1,21 @@
-import React from "react";
-import { ScrollView, View } from "react-native";
+import React, { useEffect } from "react";
+import { ScrollView } from "react-native";
 import { Text, Button, Avatar, Card } from "react-native-paper";
 import { useAppTheme } from "../../../contexts/themeContext";
 import { useDesign } from "../../../contexts/designContext";
+import { useTabsUi } from "../../../contexts/tabContext";
 
 export default function Play() {
   const { theme } = useAppTheme();
   const { design } = useDesign();
+  const { hide, reveal } = useTabsUi();
+
+  useEffect(() => {
+    hide();
+    return () => {
+      reveal();
+    };
+  }, [hide, reveal]);
 
   return (
     <ScrollView
@@ -20,7 +29,10 @@ export default function Play() {
     >
       <Text
         variant="headlineSmall"
-        style={{ color: theme.colors.onBackground, marginBottom: design.spacing.lg }}
+        style={{
+          color: theme.colors.onBackground,
+          marginBottom: design.spacing.lg,
+        }}
       >
         Now Playing
       </Text>
