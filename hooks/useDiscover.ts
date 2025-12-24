@@ -1,4 +1,4 @@
-import { Landmark, Music, MapPin } from "lucide-react-native";
+import { Landmark, Music, MapPin, Mic, Waves } from "lucide-react-native";
 
 export type DiscoverItem = {
   id: string;
@@ -49,6 +49,28 @@ export default function useDiscover() {
       ],
     },
     {
+      key: "soundscapes",
+      title: "Urban Soundscapes",
+      subtitle: "City moods, reimagined",
+      icon: Waves,
+      items: [
+        {
+          id: "city-explorer",
+          title: "City Explorer",
+          subtitle: "Urban Journey",
+          avatarIcon: "sound",
+          image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b",
+        },
+        {
+          id: "night-walk",
+          title: "Night Walk",
+          subtitle: "After-dark Atmospheres",
+          avatarIcon: "sound",
+          image: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade",
+        },
+      ],
+    },
+    {
       key: "moods",
       title: "Travel Moods",
       subtitle: "Soundtracks for every moment",
@@ -74,6 +96,21 @@ export default function useDiscover() {
           subtitle: "Warm tones, golden hour",
           avatarIcon: "music",
           image: "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
+        },
+      ],
+    },
+    {
+      key: "local-artists",
+      title: "Featuring Local Artists",
+      subtitle: "Spotlight:",
+      icon: Mic,
+      items: [
+        {
+          id: "aisyah-rosli",
+          title: "Aisyah Rosli",
+          subtitle: "Rainforest Dream · Traditional Melodies",
+          avatarIcon: "artist",
+          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
         },
       ],
     },

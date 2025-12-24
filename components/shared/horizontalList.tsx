@@ -1,7 +1,6 @@
 import React from "react";
 import { ScrollView, View, Image } from "react-native";
-import { Card, Text } from "react-native-paper";
-import { useAppTheme } from "../../contexts/themeContext";
+import { Card, Text, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 
 type HorizontalItem = {
@@ -16,7 +15,7 @@ type HorizontalListProps = {
 };
 
 export default function HorizontalList({ data }: HorizontalListProps) {
-  const { theme } = useAppTheme();
+  const theme = useTheme();
   const { design } = useDesign();
 
   return (
@@ -29,7 +28,7 @@ export default function HorizontalList({ data }: HorizontalListProps) {
       }}
       style={{
         marginHorizontal: -design.spacing.md,
-        marginBottom: design.spacing.lg,
+        marginBottom: design.spacing.md,
       }}
     >
       {data?.map((item) => (

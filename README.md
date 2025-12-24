@@ -3,11 +3,12 @@ Music-powered travel companion built with **Expo**, **React Native**, and **expo
 
 ---
 
-## Tech
+## Brand Tagline
+**TravelTune — The soundtrack of your trip**
 
-- Expo React Native (TypeScript)
-- React Navigation / Expo Router
-- React Native Paper (MD3)
+### Brand Colors
+- Primary: #5B2EFF (Purple)
+- Accent: #FF8A3D (Orange)
 
 ```bash
 
@@ -136,6 +137,81 @@ traveltune/
 ├─ package.json
 ├─ README.md
 └─ tsconfig.json
+
+JUMAAT
+0000 – Start Konvoi
+0400 – Estimate Sampai
+0500 –
+0600 –
+0700 –
+0800 –
+0900 –
+1000 –
+1100 –
+1200 –
+1300 –
+1400 –
+1500 –
+1600 –
+1700 –
+1800 –
+1900 –
+2000 –
+2100 –
+2200 –
+2300 –
+
+SABTU
+0000 –
+0100 –
+0200 –
+0300 –
+0400 –
+0500 –
+0600 –
+0700 –
+0800 –
+0900 –
+1000 –
+1100 –
+1200 –
+1300 –
+1400 –
+1500 –
+1600 –
+1700 –
+1800 –
+1900 –
+2000 –
+2100 –
+2200 –
+2300 –
+
+AHAD
+0000 –
+0100 –
+0200 –
+0300 –
+0400 –
+0500 –
+0600 –
+0700 –
+0800 –
+0900 –
+1000 –
+1100 –
+1200 –
+1300 –
+1400 –
+1500 –
+1600 –
+1700 –
+1800 –
+1900 –
+2000 –
+2100 –
+2200 –
+2300 –
 
 
 ```

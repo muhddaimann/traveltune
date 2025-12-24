@@ -52,16 +52,20 @@ export const lightTheme: MD3Theme = {
   fonts,
   colors: {
     ...MD3LightTheme.colors,
-    primary: "#345995",
-    onPrimary: "#F2F6FF",
-    primaryContainer: "#C7D6F5",
-    onPrimaryContainer: "#13294B",
 
-    secondary: "#FFA24C",
+    // 🎵 Deep Purple — Music & Emotion (muted, premium)
+    primary: "#3E2A5F",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#E2DAF0",
+    onPrimaryContainer: "#1E1233",
+
+    // 🌅 Warm Orange — Travel & Energy
+    secondary: "#FF8A3D",
     onSecondary: "#2A1400",
-    secondaryContainer: "#FFE0BF",
+    secondaryContainer: "#FFD9C2",
     onSecondaryContainer: "#3A1E00",
 
+    // 🌿 Support / Calm
     tertiary: "#2F9E62",
     onTertiary: "#FFFFFF",
     tertiaryContainer: "#CDEFD9",
@@ -72,25 +76,25 @@ export const lightTheme: MD3Theme = {
     errorContainer: "#FFDAD6",
     onErrorContainer: "#410002",
 
-    background: "#F7F8FB",
-    onBackground: "#1A1B1E",
+    background: "#F9F7F4",
+    onBackground: "#1A1A1A",
     surface: "#FFFFFF",
-    onSurface: "#1A1B1E",
+    onSurface: "#1A1A1A",
 
-    surfaceVariant: "#E7E7EE",
-    onSurfaceVariant: "#494A57",
-    outline: "#7A7B8A",
-    outlineVariant: "#C9CADA",
+    surfaceVariant: "#E4E0EC",
+    onSurfaceVariant: "#4A4654",
+    outline: "#7C7787",
+    outlineVariant: "#C9C4D3",
 
-    inverseSurface: "#2F3036",
+    inverseSurface: "#2B2833",
     inverseOnSurface: "#F2F2F4",
-    inversePrimary: "#B5C7F3",
+    inversePrimary: "#B9A7DD",
 
     shadow: "#000000",
     scrim: "#000000",
-    surfaceDisabled: "rgba(26,27,30,0.12)",
-    onSurfaceDisabled: "rgba(26,27,30,0.38)",
-    backdrop: "rgba(26,27,30,0.4)",
+    surfaceDisabled: "rgba(26,26,26,0.12)",
+    onSurfaceDisabled: "rgba(26,26,26,0.38)",
+    backdrop: "rgba(26,26,26,0.4)",
 
     elevation: { ...MD3LightTheme.colors.elevation },
   },
@@ -102,16 +106,20 @@ export const darkTheme: MD3Theme = {
   fonts,
   colors: {
     ...MD3DarkTheme.colors,
-    primary: "#AFC4FF",
-    onPrimary: "#0A1C3A",
-    primaryContainer: "#1F3B78",
-    onPrimaryContainer: "#D9E3FF",
 
-    secondary: "#FFC38A",
+    // 🎵 Deep Purple — darker, less glow
+    primary: "#B9A7DD",
+    onPrimary: "#241436",
+    primaryContainer: "#3A2556",
+    onPrimaryContainer: "#E2DAF0",
+
+    // 🌅 Warm Orange
+    secondary: "#FFB37A",
     onSecondary: "#3A1E00",
     secondaryContainer: "#663A00",
-    onSecondaryContainer: "#FFD7A8",
+    onSecondaryContainer: "#FFD9C2",
 
+    // 🌿 Support
     tertiary: "#79D39B",
     onTertiary: "#0B2A18",
     tertiaryContainer: "#1A5A37",
@@ -122,24 +130,24 @@ export const darkTheme: MD3Theme = {
     errorContainer: "#93000A",
     onErrorContainer: "#FFDAD6",
 
-    background: "#0A0B10",
-    onBackground: "#E3E3E8",
-    surface: "#111318",
-    onSurface: "#E3E3E8",
+    background: "#0E0C14",
+    onBackground: "#E6E6EB",
+    surface: "#15131B",
+    onSurface: "#E6E6EB",
 
-    surfaceVariant: "#444654",
-    onSurfaceVariant: "#C9CAD7",
-    outline: "#9293A1",
-    outlineVariant: "#444654",
+    surfaceVariant: "#3E3A4A",
+    onSurfaceVariant: "#C9C5D6",
+    outline: "#948FA1",
+    outlineVariant: "#3E3A4A",
 
-    inverseSurface: "#E3E3E8",
-    inverseOnSurface: "#202126",
-    inversePrimary: "#345995",
+    inverseSurface: "#E6E6EB",
+    inverseOnSurface: "#23212A",
+    inversePrimary: "#3E2A5F",
 
     shadow: "#000000",
     scrim: "#000000",
-    surfaceDisabled: "rgba(227,227,232,0.12)",
-    onSurfaceDisabled: "rgba(227,227,232,0.38)",
+    surfaceDisabled: "rgba(230,230,235,0.12)",
+    onSurfaceDisabled: "rgba(230,230,235,0.38)",
     backdrop: "rgba(0,0,0,0.4)",
 
     elevation: { ...MD3DarkTheme.colors.elevation },
