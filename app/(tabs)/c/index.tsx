@@ -6,7 +6,7 @@ import { useAppTheme } from "../../../contexts/themeContext";
 import { useDesign } from "../../../contexts/designContext";
 import useJourney from "../../../hooks/useJourney";
 
-export default function Journeys() {
+export default function Journey() {
   const { theme } = useAppTheme();
   const { design } = useDesign();
 

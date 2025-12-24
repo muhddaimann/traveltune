@@ -22,17 +22,17 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="b"
           options={{
-            title: "Play",
-            tabBarIcon: ({ color, size }) => (
-              <PlayCircle color={color} size={size} />
-            ),
+            title: "Maps",
+            tabBarIcon: ({ color, size }) => <Map color={color} size={size} />,
           }}
         />
         <Tabs.Screen
           name="c"
           options={{
-            title: "Journey",
-            tabBarIcon: ({ color, size }) => <Map color={color} size={size} />,
+            title: "Play",
+            tabBarIcon: ({ color, size }) => (
+              <PlayCircle color={color} size={size} />
+            ),
           }}
         />
         <Tabs.Screen

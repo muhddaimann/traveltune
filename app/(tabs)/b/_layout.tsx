@@ -1,7 +1,5 @@
 import { Stack } from "expo-router";
 
-export default function PlayLayout() {
-  return (
-    <Stack screenOptions={{ headerShown: false }} />
-  );
+export default function MapsLayout() {
+  return <Stack screenOptions={{ headerShown: false }} />;
 }

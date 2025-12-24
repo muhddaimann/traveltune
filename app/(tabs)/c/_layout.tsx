@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 
-export default function JourneysLayout() {
+export default function PlayLayout() {
   return (
     <Stack screenOptions={{ headerShown: false }} />
   );

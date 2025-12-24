@@ -1,27 +1,22 @@
 import React from "react";
 import { View } from "react-native";
-import {
-  Text,
-  Avatar,
-  IconButton,
-  useTheme,
-} from "react-native-paper";
+import { Text, useTheme } from "react-native-paper";
+import { MapPin } from "lucide-react-native";
 import { useDesign } from "../../contexts/designContext";
 import MainSearch from "../shared/mainSearch";
 
-type HeaderProps = {
-  name?: string;
-};
-
-export default function Header({ name = "Traveler" }: HeaderProps) {
+export default function MapHeader() {
   const theme = useTheme();
   const { design } = useDesign();
 
   return (
     <View
       style={{
-        paddingBottom: design.spacing.lg,
         backgroundColor: theme.colors.background,
+        paddingBottom: design.spacing.md,
+        paddingHorizontal: design.spacing.md,
+        borderBottomWidth: 1,
+        borderBottomColor: theme.colors.outlineVariant,
         gap: design.spacing.md,
       }}
     >
@@ -59,53 +54,37 @@ export default function Header({ name = "Traveler" }: HeaderProps) {
         style={{
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "space-between",
+          gap: design.spacing.sm,
         }}
       >
-        <View>
-          <Text
-            variant="headlineMedium"
-            style={{ color: theme.colors.onBackground }}
-          >
-            Hello {name}
-          </Text>
-
-          <Text
-            variant="bodyMedium"
-            style={{ color: theme.colors.onSurfaceVariant }}
-          >
-            Where are you headed today?
-          </Text>
+        <View
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: 18,
+            alignItems: "center",
+            justifyContent: "center",
+            backgroundColor: theme.colors.surfaceVariant,
+          }}
+        >
+          <MapPin size={18} color={theme.colors.onSurfaceVariant} />
         </View>
 
-        <View style={{ flexDirection: "row", alignItems: "center", gap: 8 }}>
-          <View
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 20,
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: theme.colors.surfaceVariant,
-            }}
-          >
-            <IconButton
-              icon="bell-outline"
-              size={22}
-              iconColor={theme.colors.onSurfaceVariant}
-              style={{ margin: 0 }}
-            />
-          </View>
+        <View>
+          <Text variant="titleMedium" style={{ color: theme.colors.onSurface }}>
+            No active journey
+          </Text>
 
-          <Avatar.Icon
-            size={40}
-            icon="account"
-            style={{ backgroundColor: theme.colors.surfaceVariant }}
-            color={theme.colors.onSurfaceVariant}
-          />
+          <Text
+            variant="bodySmall"
+            style={{ color: theme.colors.onSurfaceVariant }}
+          >
+            Your route and soundtrack will appear here
+          </Text>
         </View>
       </View>
 
+      {/* Search */}
       <MainSearch />
     </View>
   );
