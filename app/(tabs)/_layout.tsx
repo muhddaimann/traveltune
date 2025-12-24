@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Compass, PlayCircle, Map, Settings } from "lucide-react-native";
+import { Compass, BookOpen, Map, Library } from "lucide-react-native";
 import { TabProvider } from "../../contexts/tabContext";
 import { CustomTabBar } from "../../components/shared/navBar";
 
@@ -29,18 +29,18 @@ export default function TabsLayout() {
         <Tabs.Screen
           name="c"
           options={{
-            title: "Play",
+            title: "Journal",
             tabBarIcon: ({ color, size }) => (
-              <PlayCircle color={color} size={size} />
+              <BookOpen color={color} size={size} />
             ),
           }}
         />
         <Tabs.Screen
           name="d"
           options={{
-            title: "Settings",
+            title: "Library",
             tabBarIcon: ({ color, size }) => (
-              <Settings color={color} size={size} />
+              <Library color={color} size={size} />
             ),
           }}
         />

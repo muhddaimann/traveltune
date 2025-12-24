@@ -18,7 +18,7 @@ export default function MapScreen() {
         return;
       }
 
-      const loc = await Location.getCurrentPositionAsync({});
+      const loc = await Location.getCurrentPositionAsync({}); 
       setLocation(loc);
     })();
   }, []);
