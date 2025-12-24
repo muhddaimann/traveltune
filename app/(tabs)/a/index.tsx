@@ -11,6 +11,7 @@ import HorizontalList from "../../../components/shared/horizontalList";
 import FullList from "../../../components/shared/fullList";
 import useDiscover from "../../../hooks/useDiscover";
 import TwoCard from "../../../components/shared/twoCard";
+import MemoryList from "../../../components/shared/memoryList";
 
 export default function Discover() {
   const theme = useTheme();
@@ -23,7 +24,7 @@ export default function Discover() {
   const localArtists = sections.find((s) => s.key === "local-artists");
   const nearby = sections.find((s) => s.key === "nearby");
   const soundscapes = sections.find((s) => s.key === "soundscapes");
-
+  const memory = sections.find((s) => s.key === "quick-memory");
   const HORIZONTAL_OFFSET = design.spacing.md;
 
   return (
@@ -53,6 +54,18 @@ export default function Discover() {
             subtitle={`Spotlight: ${localArtists.items[0].title}`}
           />
           <FullList data={localArtists.items} />
+        </>
+      )}
+
+      {memory && (
+        <>
+          <SectionHeader
+            title={memory.title}
+            subtitle={memory.subtitle}
+            icon={memory.icon}
+            onPress={() => router.push("/(tabs)/a/memory")}
+          />
+          <MemoryList data={memory.items} />
         </>
       )}
 

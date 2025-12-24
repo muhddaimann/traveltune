@@ -8,6 +8,7 @@ import {
   useTheme,
 } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
+import MainSearch from "../shared/mainSearch";
 
 type HeaderProps = {
   name?: string;
@@ -27,7 +28,6 @@ export default function Header({ name = "Traveler" }: HeaderProps) {
     >
       <View
         style={{
-          height: design.spacing.xl,
           justifyContent: "center",
           alignItems: "center",
         }}
@@ -107,14 +107,7 @@ export default function Header({ name = "Traveler" }: HeaderProps) {
         </View>
       </View>
 
-      <TextInput
-        mode="outlined"
-        placeholder="Search cities, moods, soundscapes"
-        left={<TextInput.Icon icon="magnify" />}
-        style={{ backgroundColor: theme.colors.surface }}
-        outlineStyle={{ borderRadius: design.radii.lg }}
-        contentStyle={{ fontSize: 16 }}
-      />
+      <MainSearch />
     </View>
   );
 }

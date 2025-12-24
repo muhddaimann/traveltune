@@ -1,4 +1,11 @@
-import { Landmark, Music, MapPin, Mic, Waves } from "lucide-react-native";
+import {
+  Landmark,
+  Music,
+  MapPin,
+  Mic,
+  Waves,
+  Image as ImageIcon,
+} from "lucide-react-native";
 
 export type DiscoverItem = {
   id: string;
@@ -19,6 +26,35 @@ export type DiscoverSection = {
 
 export default function useDiscover() {
   const sections: DiscoverSection[] = [
+    {
+      key: "quick-memory",
+      title: "Quick Memories",
+      subtitle: "Recent moments you saved",
+      icon: ImageIcon,
+      items: [
+        {
+          id: "memory-kyoto",
+          title: "Kyoto Morning Walk",
+          subtitle: "12 Aug 2025",
+          avatarIcon: "memory",
+          image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26",
+        },
+        {
+          id: "memory-paris",
+          title: "Paris Café Stop",
+          subtitle: "08 Aug 2025",
+          avatarIcon: "memory",
+          image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+        },
+        {
+          id: "memory",
+          title: "Paris Café Stop",
+          subtitle: "08 Aug 2025",
+          avatarIcon: "memory",
+          image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+        },
+      ],
+    },
     {
       key: "cities",
       title: "Browse Cities",
