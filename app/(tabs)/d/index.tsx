@@ -1,24 +1,42 @@
 import React, { useState, useMemo } from "react";
-import { View, Image } from "react-native";
+import { View, Pressable } from "react-native";
 import { Text, Switch, useTheme } from "react-native-paper";
 import { useDesign } from "../../../contexts/designContext";
 import JourneyHeader from "../../../components/c/header";
 import PromptUI from "../../../components/shared/promptUI";
 import SectionHeader from "../../../components/shared/sectionHeader";
 import useLibrary from "../../../hooks/useLibrary";
-import { Music, Mic } from "lucide-react-native";
+import LibraryList from "../../../components/d/libraryList";
+import { Music, Mic, Route } from "lucide-react-native";
+
+type LibraryTab = "JOURNEYS" | "PLAYLISTS" | "ARTISTS";
 
 export default function Library() {
   const theme = useTheme();
   const { design } = useDesign();
-  const { playlists, artists } = useLibrary();
+  const { journeyLibraries, playlists, artists } = useLibrary();
   const [enabled, setEnabled] = useState(false);
-  const [tab, setTab] = useState<"PLAYLISTS" | "ARTISTS">("PLAYLISTS");
+  const [tab, setTab] = useState<LibraryTab>("JOURNEYS");
 
-  const data = useMemo(
-    () => (tab === "PLAYLISTS" ? playlists : artists),
-    [tab, playlists, artists]
-  );
+  const data = useMemo(() => {
+    switch (tab) {
+      case "JOURNEYS":
+        return journeyLibraries;
+      case "PLAYLISTS":
+        return playlists;
+      case "ARTISTS":
+        return artists;
+    }
+  }, [tab, journeyLibraries, playlists, artists]);
+
+  const icon = tab === "JOURNEYS" ? Route : tab === "PLAYLISTS" ? Music : Mic;
+
+  const subtitle =
+    tab === "JOURNEYS"
+      ? "Music captured along your journeys"
+      : tab === "PLAYLISTS"
+      ? "Your saved playlists"
+      : "Artists you follow";
 
   return (
     <View
@@ -33,10 +51,8 @@ export default function Library() {
 
       <SectionHeader
         title="Library"
-        subtitle={
-          tab === "PLAYLISTS" ? "Your saved playlists" : "Artists you follow"
-        }
-        icon={tab === "PLAYLISTS" ? Music : Mic}
+        subtitle={subtitle}
+        icon={icon}
         rightSlot={
           <Switch
             value={enabled}
@@ -49,87 +65,37 @@ export default function Library() {
       {!enabled ? (
         <PromptUI
           title="Your library is empty"
-          description="Saved playlists and artists will appear here."
+          description="Journeys, playlists, and artists you save will appear here."
           actionLabel="Explore music"
           onAction={() => setEnabled(true)}
         />
       ) : (
         <View style={{ gap: design.spacing.md }}>
-          <View
-            style={{
-              flexDirection: "row",
-              gap: design.spacing.sm,
-            }}
-          >
-            <Text
-              onPress={() => setTab("PLAYLISTS")}
-              variant="labelLarge"
-              style={{
-                color:
-                  tab === "PLAYLISTS"
-                    ? theme.colors.primary
-                    : theme.colors.onSurfaceVariant,
-              }}
-            >
-              Playlists
-            </Text>
-            <Text
-              onPress={() => setTab("ARTISTS")}
-              variant="labelLarge"
-              style={{
-                color:
-                  tab === "ARTISTS"
-                    ? theme.colors.primary
-                    : theme.colors.onSurfaceVariant,
-              }}
-            >
-              Artists
-            </Text>
+          <View style={{ flexDirection: "row", gap: design.spacing.sm }}>
+            {(["JOURNEYS", "PLAYLISTS", "ARTISTS"] as LibraryTab[]).map(
+              (key) => (
+                <Pressable key={key} onPress={() => setTab(key)}>
+                  <Text
+                    variant="labelLarge"
+                    style={{
+                      color:
+                        tab === key
+                          ? theme.colors.primary
+                          : theme.colors.onSurfaceVariant,
+                    }}
+                  >
+                    {key === "JOURNEYS"
+                      ? "Journeys"
+                      : key === "PLAYLISTS"
+                      ? "Playlists"
+                      : "Artists"}
+                  </Text>
+                </Pressable>
+              )
+            )}
           </View>
 
-          {data.map((item: any) => (
-            <View
-              key={item.id}
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: design.spacing.md,
-                backgroundColor: theme.colors.surface,
-                borderRadius: design.radii.lg,
-                padding: design.spacing.sm,
-              }}
-            >
-              <Image
-                source={{ uri: item.image }}
-                style={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: design.radii.md,
-                }}
-              />
-
-              <View style={{ flex: 1 }}>
-                <Text
-                  variant="titleSmall"
-                  numberOfLines={1}
-                  style={{ color: theme.colors.onSurface }}
-                >
-                  {item.title ?? item.name}
-                </Text>
-
-                <Text
-                  variant="bodySmall"
-                  numberOfLines={1}
-                  style={{ color: theme.colors.onSurfaceVariant }}
-                >
-                  {item.subtitle ??
-                    (item.trackCount
-                      ? `${item.trackCount} tracks`
-                      : item.genre)}
-                </Text>
-              </View>
-            </View>
-          ))}
+          <LibraryList data={data} />
         </View>
       )}
     </View>
