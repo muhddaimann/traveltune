@@ -3,6 +3,7 @@ import { View, Text, Pressable } from "react-native";
 import { useTheme } from "react-native-paper";
 import { PlayCircle, Plus } from "lucide-react-native";
 import { useDesign } from "../../contexts/designContext";
+import { useRouter } from "expo-router";
 
 type QuickActionsProps = {
   from?: string;
@@ -15,16 +16,13 @@ export default function QuickActions({
 }: QuickActionsProps) {
   const theme = useTheme();
   const { design } = useDesign();
+  const router = useRouter();
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        gap: design.spacing.md,
-      }}
-    >
+    <View style={{ flexDirection: "row", gap: design.spacing.md }}>
       <Pressable
-        style={{
+        onPress={() => router.push("(tabs)/b")}
+        style={({ pressed }) => ({
           flex: 1.5,
           backgroundColor: theme.colors.primaryContainer,
           borderRadius: design.radii["2xl"],
@@ -32,7 +30,9 @@ export default function QuickActions({
           borderWidth: 1,
           borderColor: theme.colors.outlineVariant,
           justifyContent: "flex-end",
-        }}
+          transform: [{ scale: pressed ? 0.98 : 1 }],
+          opacity: pressed ? design.opacity.pressed : 1,
+        })}
       >
         <View
           style={{
@@ -77,14 +77,17 @@ export default function QuickActions({
       </Pressable>
 
       <Pressable
-        style={{
+        onPress={() => router.push("(tabs)/c/addJourney")}
+        style={({ pressed }) => ({
           flex: 1,
           minHeight: design.sizes.touch.minHeight * 2.5,
           backgroundColor: theme.colors.secondaryContainer,
           borderRadius: design.radii["2xl"],
           padding: design.spacing.md,
           justifyContent: "flex-end",
-        }}
+          transform: [{ scale: pressed ? 0.98 : 1 }],
+          opacity: pressed ? design.opacity.pressed : 1,
+        })}
       >
         <View
           style={{

@@ -3,7 +3,7 @@ import { View, TouchableOpacity } from "react-native";
 import { Text } from "react-native-paper";
 import { ChevronLeft } from "lucide-react-native";
 import { useRouter } from "expo-router";
-import { useAppTheme } from "../../contexts/themeContext";
+import { useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 
 type AppHeaderProps = {
@@ -19,7 +19,7 @@ export default function AppHeader({
   leftSlot,
   rightSlot,
 }: AppHeaderProps) {
-  const { theme } = useAppTheme();
+  const { colors } = useTheme();
   const { design } = useDesign();
   const router = useRouter();
 
@@ -27,7 +27,7 @@ export default function AppHeader({
     <View
       style={{
         paddingBottom: design.spacing.md,
-        backgroundColor: theme.colors.background,
+        backgroundColor: colors.background,
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
@@ -44,10 +44,10 @@ export default function AppHeader({
               borderRadius: 18,
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: theme.colors.surfaceVariant,
+              backgroundColor: colors.primary,
             }}
           >
-            <ChevronLeft size={20} color={theme.colors.onSurfaceVariant} />
+            <ChevronLeft size={20} color={colors.onPrimary} />
           </TouchableOpacity>
         )}
       </View>
@@ -62,7 +62,7 @@ export default function AppHeader({
         <Text
           variant="titleMedium"
           numberOfLines={1}
-          style={{ color: theme.colors.onBackground }}
+          style={{ color: colors.onBackground }}
         >
           {title}
         </Text>
@@ -71,7 +71,7 @@ export default function AppHeader({
           <Text
             variant="bodySmall"
             numberOfLines={1}
-            style={{ color: theme.colors.onSurfaceVariant }}
+            style={{ color: colors.onSurfaceVariant }}
           >
             {subtitle}
           </Text>

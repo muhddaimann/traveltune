@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { Text, Avatar, IconButton, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 import MainSearch from "../shared/mainSearch";
-import QuickActions from "../shared/quickAction";
+import QuickActions from "./quickAction";
 
 type HeaderProps = {
   name?: string;

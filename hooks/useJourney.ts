@@ -6,7 +6,7 @@ export type JourneyItem = {
   subtitle?: string;
   date: string;
   status: JourneyStatus;
-  image: string;
+  image: any;
   location?: string;
   nowPlaying?: string;
 };
@@ -14,34 +14,34 @@ export type JourneyItem = {
 export default function useJourney() {
   const journeys: JourneyItem[] = [
     {
-      id: "journey-kyoto",
-      title: "Kyoto Morning Walk",
-      subtitle: "Traditional streets & temples",
+      id: "journey-kl-batu",
+      title: "KL Heritage Line",
+      subtitle: "Urban rails to sacred heights",
       date: "12 Aug 2025",
       status: "ACTIVE",
-      location: "Kyoto, Japan",
-      nowPlaying: "Rainforest Dream",
-      image: "https://images.unsplash.com/photo-1503899036084-c55cdd92da26",
-    },
-    { 
-      id: "journey-paris",
-      title: "Paris Café Hop",
-      subtitle: "Indie cafés & quiet streets",
-      date: "08 Aug 2025",
-      status: "COMPLETED",
-      location: "Paris, France",
-      nowPlaying: "Café Au Lait",
-      image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+      location: "KL Sentral → Batu Caves",
+      nowPlaying: "Golden Steps",
+      image: require("../assets/images/kl.jpg"),
     },
     {
-      id: "journey-seoul",
-      title: "Seoul Night Ride",
-      subtitle: "City lights & late trains",
+      id: "journey-penang",
+      title: "Penang Heritage Walk",
+      subtitle: "Street art & old-town cafés",
+      date: "08 Aug 2025",
+      status: "COMPLETED",
+      location: "George Town, Penang",
+      nowPlaying: "Old Town Echoes",
+      image: require("../assets/images/penang.jpeg"),
+    },
+    {
+      id: "journey-langkawi",
+      title: "Langkawi Island Drift",
+      subtitle: "Sea breeze & slow sunsets",
       date: "02 Aug 2025",
       status: "PAUSED",
-      location: "Seoul, South Korea",
-      nowPlaying: "Midnight Neon",
-      image: "https://images.unsplash.com/photo-1534274867514-d5b47ef89ed7",
+      location: "Langkawi, Kedah",
+      nowPlaying: "Island Dusk",
+      image: require("../assets/images/langkawi.jpg"),
     },
   ];
 

@@ -1,7 +1,10 @@
 import { Stack } from "expo-router";
 
-export default function PlayLayout() {
+export default function JourneyLayout() {
   return (
-    <Stack screenOptions={{ headerShown: false }} />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="index" />
+      <Stack.Screen name="addJourney" />
+    </Stack>
   );
 }

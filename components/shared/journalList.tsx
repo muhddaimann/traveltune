@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ImageSourcePropType } from "react-native";
 import { Card, Text, IconButton, useTheme } from "react-native-paper";
 import {
   MoreVertical,
@@ -17,7 +17,7 @@ export type JournalItem = {
   date?: string;
   location?: string;
   nowPlaying?: string;
-  image: string;
+  image: ImageSourcePropType;
 };
 
 type JournalListProps = {
@@ -98,7 +98,7 @@ export default function JournalList({ data }: JournalListProps) {
           >
             {/* Thumbnail */}
             <Image
-              source={{ uri: item.image }}
+              source={item.image}
               style={{
                 width: 96,
                 height: 96,
