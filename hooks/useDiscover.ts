@@ -6,13 +6,14 @@ import {
   Waves,
   Image as ImageIcon,
 } from "lucide-react-native";
+import { ImageSourcePropType } from "react-native";
 
 export type DiscoverItem = {
   id: string;
   title: string;
   subtitle?: string;
   avatarIcon?: string;
-  image: string;
+  image: ImageSourcePropType;
 };
 
 export type DiscoverSection = {
@@ -58,29 +59,29 @@ export default function useDiscover() {
     {
       key: "cities",
       title: "Browse Cities",
-      subtitle: "Music inspired by destinations",
+      subtitle: "Music inspired by local destinations",
       icon: Landmark,
       items: [
         {
-          id: "tokyo",
-          title: "Tokyo",
-          subtitle: "City pop, modern beats",
+          id: "kuala-lumpur",
+          title: "Kuala Lumpur",
+          subtitle: "Urban pop, city rhythms",
           avatarIcon: "map",
-          image: "https://images.unsplash.com/photo-1549693578-d683be217e58",
+          image: require("../assets/images/kl.jpg"),
         },
         {
-          id: "paris",
-          title: "Paris",
-          subtitle: "Chill café & indie",
+          id: "penang",
+          title: "Penang",
+          subtitle: "Indie, heritage café vibes",
           avatarIcon: "map",
-          image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34",
+          image: require("../assets/images/penang.jpeg"),
         },
         {
-          id: "seoul",
-          title: "Seoul",
-          subtitle: "K-pop, R&B, night vibes",
+          id: "langkawi",
+          title: "Langkawi",
+          subtitle: "Chill, tropical soundscapes",
           avatarIcon: "map",
-          image: "https://images.unsplash.com/photo-1534274867514-d5b47ef89ed7",
+          image: require("../assets/images/langkawi.jpg"),
         },
       ],
     },
@@ -109,29 +110,29 @@ export default function useDiscover() {
     {
       key: "moods",
       title: "Travel Moods",
-      subtitle: "Soundtracks for every moment",
+      subtitle: "Soundtracks for every Malaysian moment",
       icon: Music,
       items: [
         {
-          id: "airport",
-          title: "Airport Chill",
-          subtitle: "Smooth, calm travel vibes",
+          id: "airport-klia",
+          title: "KLIA Chill",
+          subtitle: "Calm departures, late-night lounges",
           avatarIcon: "music",
-          image: "https://images.unsplash.com/photo-1505751172876-fa1923c5c528",
+          image: require("../assets/images/klia.jpg"),
         },
         {
-          id: "roadtrip",
-          title: "Road Trip",
-          subtitle: "Upbeat, long-drive energy",
+          id: "north-south-highway",
+          title: "Highway Drive",
+          subtitle: "Long stretches, steady rhythms",
           avatarIcon: "music",
-          image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
+          image: require("../assets/images/highway.jpg"),
         },
         {
-          id: "sunset",
-          title: "Sunset Ride",
-          subtitle: "Warm tones, golden hour",
+          id: "beach-sunset",
+          title: "Island Sunset",
+          subtitle: "Golden hour, sea breeze",
           avatarIcon: "music",
-          image: "https://images.unsplash.com/photo-1493558103817-58b2924bce98",
+          image: require("../assets/images/sunset.jpg"),
         },
       ],
     },
@@ -142,11 +143,11 @@ export default function useDiscover() {
       icon: Mic,
       items: [
         {
-          id: "aisyah-rosli",
-          title: "Aisyah Rosli",
+          id: "shila-amzah",
+          title: "Shila Amzah",
           subtitle: "Rainforest Dream · Traditional Melodies",
           avatarIcon: "artist",
-          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+          image: require("../assets/images/shila.jpg"),
         },
       ],
     },

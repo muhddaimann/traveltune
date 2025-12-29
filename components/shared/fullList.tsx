@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Image } from "react-native";
+import { View, Image, ImageSourcePropType } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 
@@ -7,7 +7,7 @@ type FullItem = {
   id: string;
   title: string;
   subtitle?: string;
-  image: string;
+  image: ImageSourcePropType;
 };
 
 type FullListProps = {
@@ -41,11 +41,12 @@ export default function FullList({ data }: FullListProps) {
             }}
           >
             <Image
-              source={{ uri: item.image }}
+              source={item.image}
               style={{
                 width: "100%",
                 height: 200,
               }}
+              resizeMode="cover"
             />
 
             <View
@@ -54,6 +55,7 @@ export default function FullList({ data }: FullListProps) {
                 left: 0,
                 right: 0,
                 bottom: 0,
+                height: "100%",
                 backgroundColor: "rgba(0,0,0,0.25)",
               }}
             />

@@ -41,12 +41,17 @@ export default function Discover() {
     >
       <Header />
 
-      {soundscapes?.items?.length && (
+      {moods && (
         <>
-          <TwoCard data={soundscapes.items} />
+          <SectionHeader
+            title={moods.title}
+            subtitle={moods.subtitle}
+            icon={moods.icon}
+            onPress={() => router.push("/(tabs)/a/travelMood")}
+          />
+          <HorizontalList data={moods.items} />
         </>
       )}
-
       {localArtists?.items?.length && (
         <>
           <SectionHeader
@@ -54,18 +59,6 @@ export default function Discover() {
             subtitle={`Spotlight: ${localArtists.items[0].title}`}
           />
           <FullList data={localArtists.items} />
-        </>
-      )}
-
-      {memory && (
-        <>
-          <SectionHeader
-            title={memory.title}
-            subtitle={memory.subtitle}
-            icon={memory.icon}
-            onPress={() => router.push("/(tabs)/a/memory")}
-          />
-          <MemoryList data={memory.items} />
         </>
       )}
 
@@ -90,35 +83,6 @@ export default function Discover() {
           >
             <HorizontalList data={cities.items} />
           </ScrollView>
-        </>
-      )}
-
-      {moods && (
-        <>
-          <SectionHeader
-            title={moods.title}
-            subtitle={moods.subtitle}
-            icon={moods.icon}
-            onPress={() => router.push("/(tabs)/a/travelMood")}
-          />
-          <HorizontalList data={moods.items} />
-        </>
-      )}
-
-      {nearby && (
-        <>
-          <SectionHeader
-            title={nearby.title}
-            subtitle={nearby.subtitle}
-            icon={nearby.icon}
-            onPress={() => router.push("/(tabs)/a/nearbySuggest")}
-          />
-          <PromptUI
-            title="Enable location access"
-            description="Get music suggestions based on where you are"
-            actionLabel="Allow"
-            onAction={() => {}}
-          />
         </>
       )}
     </ScrollView>

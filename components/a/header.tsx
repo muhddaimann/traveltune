@@ -1,13 +1,9 @@
 import React from "react";
 import { View } from "react-native";
-import {
-  Text,
-  Avatar,
-  IconButton,
-  useTheme,
-} from "react-native-paper";
+import { Text, Avatar, IconButton, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 import MainSearch from "../shared/mainSearch";
+import QuickActions from "../shared/quickAction";
 
 type HeaderProps = {
   name?: string;
@@ -107,6 +103,7 @@ export default function Header({ name = "Traveler" }: HeaderProps) {
       </View>
 
       <MainSearch />
+      <QuickActions />
     </View>
   );
 }

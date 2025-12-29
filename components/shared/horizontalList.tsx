@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, View, Image } from "react-native";
+import { ScrollView, View, Image, ImageSourcePropType } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 
@@ -7,7 +7,7 @@ type HorizontalItem = {
   id: string;
   title: string;
   subtitle?: string;
-  image: string;
+  image: ImageSourcePropType;
 };
 
 type HorizontalListProps = {
@@ -48,10 +48,7 @@ export default function HorizontalList({ data }: HorizontalListProps) {
               overflow: "hidden",
             }}
           >
-            <Image
-              source={{ uri: item.image }}
-              style={{ width: "100%", height: 120 }}
-            />
+            <Image source={item.image} style={{ width: "100%", height: 120 }} />
 
             <View style={{ padding: design.spacing.sm }}>
               <Text
