@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { Switch, useTheme, FAB } from "react-native-paper";
 import { useRouter } from "expo-router";
@@ -18,22 +18,6 @@ export default function Journey() {
   const { journeys } = useJourney();
   const [enabled, setEnabled] = useState(false);
 
-  const HORIZONTAL_OFFSET = design.spacing.md;
-
-  const journalData = useMemo(
-    () =>
-      journeys.map((j) => ({
-        id: j.id,
-        title: j.title,
-        subtitle: j.subtitle,
-        date: j.date,
-        location: j.location,
-        nowPlaying: j.nowPlaying,
-        image: j.image,
-      })),
-    [journeys]
-  );
-
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView
@@ -41,7 +25,7 @@ export default function Journey() {
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
           paddingTop: design.spacing.sm,
-          paddingHorizontal: HORIZONTAL_OFFSET,
+          paddingHorizontal: design.spacing.md,
           paddingBottom: design.spacing["3xl"] * 2,
           gap: design.spacing.md,
         }}
@@ -69,7 +53,7 @@ export default function Journey() {
             onAction={() => router.push("(tabs)/c/addJourney")}
           />
         ) : (
-          <JournalList data={journalData} />
+          <JournalList data={journeys} />
         )}
       </ScrollView>
 

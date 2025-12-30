@@ -1,5 +1,20 @@
 export type JourneyStatus = "ACTIVE" | "PAUSED" | "COMPLETED";
 
+export type MemoryMoment = {
+  id: string;
+  image: any;
+  idea: string;
+  sound: any;
+};
+
+export type MemoryLane = {
+  music: {
+    title: string;
+    artist: string;
+  };
+  moments: MemoryMoment[];
+};
+
 export type JourneyItem = {
   id: string;
   title: string;
@@ -9,6 +24,7 @@ export type JourneyItem = {
   image: any;
   location?: string;
   mostPlayed?: string;
+  memoryLane?: MemoryLane;
 };
 
 export default function useJourney() {
@@ -22,6 +38,38 @@ export default function useJourney() {
       location: "KL Sentral → Batu Caves",
       mostPlayed: "Golden Steps",
       image: require("../assets/images/kl.jpg"),
+      memoryLane: {
+        music: {
+          title: "Golden Steps",
+          artist: "Local Ambient",
+        },
+        moments: [
+          {
+            id: "kl-m1",
+            image: require("../assets/images/kl1.jpg"),
+            idea: "Morning starts at KL Sentral",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+          {
+            id: "kl-m2",
+            image: require("../assets/images/kl2.jpg"),
+            idea: "Trains, crowds, and city rhythm",
+            sound: require("../assets/sounds/2.mp3"),
+          },
+          {
+            id: "kl-m3",
+            image: require("../assets/images/kl3.jpg"),
+            idea: "A quiet pause between stops",
+            sound: require("../assets/sounds/3.mp3"),
+          },
+          {
+            id: "kl-m4",
+            image: require("../assets/images/kl4.jpg"),
+            idea: "Arrival at Batu Caves",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+        ],
+      },
     },
     {
       id: "journey-penang",
@@ -32,6 +80,38 @@ export default function useJourney() {
       location: "George Town, Penang",
       mostPlayed: "Old Town Echoes",
       image: require("../assets/images/penang.jpeg"),
+      memoryLane: {
+        music: {
+          title: "Old Town Echoes",
+          artist: "Indie MY",
+        },
+        moments: [
+          {
+            id: "pg-m1",
+            image: require("../assets/images/penang1.jpg"),
+            idea: "Walking through heritage streets",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+          {
+            id: "pg-m2",
+            image: require("../assets/images/penang2.jpeg"),
+            idea: "Murals and hidden alleys",
+            sound: require("../assets/sounds/2.mp3"),
+          },
+          {
+            id: "pg-m3",
+            image: require("../assets/images/penang3.jpg"),
+            idea: "Coffee breaks in old cafés",
+            sound: require("../assets/sounds/3.mp3"),
+          },
+          {
+            id: "pg-m4",
+            image: require("../assets/images/penang4.jpg"),
+            idea: "Evening calm by the shophouses",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+        ],
+      },
     },
     {
       id: "journey-langkawi",
@@ -42,6 +122,38 @@ export default function useJourney() {
       location: "Langkawi, Kedah",
       mostPlayed: "Island Dusk",
       image: require("../assets/images/rembau.jpg"),
+      memoryLane: {
+        music: {
+          title: "Island Dusk",
+          artist: "Ambient MY",
+        },
+        moments: [
+          {
+            id: "rm-m1",
+            image: require("../assets/images/kl1.jpg"),
+            idea: "Sea, sun, and sand",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+          {
+            id: "rm-m2",
+            image: require("../assets/images/kl2.jpg"),
+            idea: "The sound of the waves",
+            sound: require("../assets/sounds/2.mp3"),
+          },
+          {
+            id: "rm-m3",
+            image: require("../assets/images/kl3.jpg"),
+            idea: "A beautiful sunset",
+            sound: require("../assets/sounds/3.mp3"),
+          },
+          {
+            id: "rm-m4",
+            image: require("../assets/images/kl4.jpg"),
+            idea: "Good times",
+            sound: require("../assets/sounds/1.mp3"),
+          },
+        ],
+      },
     },
   ];
 
