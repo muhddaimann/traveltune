@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { View, Pressable } from "react-native";
+import { View, Pressable, ScrollView } from "react-native";
 import { Text, Switch, useTheme } from "react-native-paper";
 import { useDesign } from "../../../contexts/designContext";
 import PromptUI from "../../../components/shared/promptUI";
@@ -38,11 +38,13 @@ export default function Library() {
       : "Artists you follow";
 
   return (
-    <View
-      style={{
-        flex: 1,
-        backgroundColor: theme.colors.background,
+    <ScrollView
+      style={{ flex: 1, backgroundColor: theme.colors.background }}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={{
+        paddingTop: design.spacing.sm,
         paddingHorizontal: design.spacing.md,
+        paddingBottom: design.spacing["3xl"] * 2,
         gap: design.spacing.md,
       }}
     >
@@ -95,6 +97,6 @@ export default function Library() {
           <LibraryList data={data} />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 }

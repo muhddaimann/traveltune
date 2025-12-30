@@ -6,14 +6,11 @@ import { useDesign } from "../../../contexts/designContext";
 import { useTabsUi } from "../../../contexts/tabContext";
 import Header from "../../../components/a/header";
 import SectionHeader from "../../../components/shared/sectionHeader";
-import PromptUI from "../../../components/shared/promptUI";
 import HorizontalList from "../../../components/shared/horizontalList";
 import FullList from "../../../components/shared/fullList";
 import useDiscover from "../../../hooks/useDiscover";
-import TwoCard from "../../../components/shared/twoCard";
-import MemoryList from "../../../components/shared/memoryList";
 
-export default function Discover() {
+export default function Home() {
   const theme = useTheme();
   const { design } = useDesign();
   const { updateByOffset } = useTabsUi();
@@ -22,9 +19,6 @@ export default function Discover() {
   const cities = sections.find((s) => s.key === "cities");
   const moods = sections.find((s) => s.key === "moods");
   const localArtists = sections.find((s) => s.key === "local-artists");
-  const nearby = sections.find((s) => s.key === "nearby");
-  const soundscapes = sections.find((s) => s.key === "soundscapes");
-  const memory = sections.find((s) => s.key === "quick-memory");
   const HORIZONTAL_OFFSET = design.spacing.md;
 
   return (
@@ -34,7 +28,7 @@ export default function Discover() {
       style={{ flex: 1, backgroundColor: theme.colors.background }}
       contentContainerStyle={{
         paddingHorizontal: design.spacing.md,
-        paddingBottom: design.spacing["2xl"] * 3,
+        paddingBottom: design.spacing["2xl"] * 5,
       }}
       onScroll={(e) => updateByOffset(e.nativeEvent.contentOffset.y)}
       scrollEventThrottle={16}

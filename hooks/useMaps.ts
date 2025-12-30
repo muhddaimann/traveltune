@@ -1,12 +1,16 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { ImageSourcePropType } from "react-native";
+import { useMusic } from "../contexts/musicContext";
 
 export type Station = {
   id: string;
   name: string;
   vibe: string;
   tag: string;
+
   albumCover: ImageSourcePropType;
+  stopCover: ImageSourcePropType;
+
   latitude: number;
   longitude: number;
   song: {
@@ -28,11 +32,13 @@ export type Route = {
 export type MapsState = ReturnType<typeof useMaps>;
 
 export default function useMaps() {
+  const { playTrack } = useMusic();
+
   const routes: Route[] = useMemo(
     () => [
       {
         id: "kl-batu-caves",
-        name: "KL Heritage Line",
+        name: "KL Urban Line",
         polyline: [
           { latitude: 3.1347, longitude: 101.6859 },
           { latitude: 3.1422, longitude: 101.6958 },
@@ -45,7 +51,8 @@ export default function useMaps() {
             name: "KL Sentral",
             vibe: "Urban heartbeat",
             tag: "Modern · Busy",
-            albumCover: require("../assets/images/kl.jpg"),
+            albumCover: require("../assets/images/yuna.jpeg"),
+            stopCover: require("../assets/images/kl.jpg"),
             latitude: 3.1347,
             longitude: 101.6859,
             song: {
@@ -58,7 +65,8 @@ export default function useMaps() {
             name: "Pasar Seni",
             vibe: "Creative pulse",
             tag: "Trendy · Aesthetic",
-            albumCover: require("../assets/images/cm.jpg"),
+            albumCover: require("../assets/images/ct.jpeg"),
+            stopCover: require("../assets/images/cm.jpg"),
             latitude: 3.1422,
             longitude: 101.6958,
             song: {
@@ -71,7 +79,8 @@ export default function useMaps() {
             name: "Titiwangsa",
             vibe: "Calm transition",
             tag: "Relaxed · Scenic",
-            albumCover: require("../assets/images/titi.jpeg"),
+            albumCover: require("../assets/images/insom.jpeg"),
+            stopCover: require("../assets/images/titi.jpeg"),
             latitude: 3.1727,
             longitude: 101.6953,
             song: {
@@ -84,7 +93,8 @@ export default function useMaps() {
             name: "Batu Caves",
             vibe: "Spiritual ascent",
             tag: "Cultural · Iconic",
-            albumCover: require("../assets/images/batu.jpg"),
+            albumCover: require("../assets/images/jaclyn.jpeg"),
+            stopCover: require("../assets/images/batu.jpg"),
             latitude: 3.2375,
             longitude: 101.6836,
             song: {
@@ -103,6 +113,12 @@ export default function useMaps() {
 
   const activeRoute = routes.find((r) => r.id === activeRouteId)!;
   const activeStation = activeRoute.stations[activeStationIndex];
+
+  useEffect(() => {
+    if (activeStation) {
+      playTrack(activeStation);
+    }
+  }, [activeStation, playTrack]);
 
   function selectStation(index: number) {
     setActiveStationIndex(index);

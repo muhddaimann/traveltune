@@ -1,21 +1,31 @@
 import { Tabs } from "expo-router";
-import { Compass, BookOpen, Map, Library } from "lucide-react-native";
+import { BookOpen, Map, Library, Home } from "lucide-react-native";
 import { TabProvider } from "../../contexts/tabContext";
 import { CustomTabBar } from "../../components/shared/navBar";
+import MiniPlayer from "../../components/shared/miniPlayer";
 
 export default function TabsLayout() {
   return (
     <TabProvider>
       <Tabs
         screenOptions={{ headerShown: false }}
-        tabBar={(props) => <CustomTabBar {...props} />}
+        tabBar={(props) => {
+          const isHomeScreen =
+            props.state.routes[props.state.index].name === "a";
+          return (
+            <>
+              {isHomeScreen && <MiniPlayer />}
+              <CustomTabBar {...props} />
+            </>
+          );
+        }}
       >
         <Tabs.Screen
           name="a"
           options={{
-            title: "Discover",
+            title: "Home",
             tabBarIcon: ({ color, size }) => (
-              <Compass color={color} size={size} />
+              <Home color={color} size={size} />
             ),
           }}
         />

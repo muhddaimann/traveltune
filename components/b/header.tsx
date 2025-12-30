@@ -1,8 +1,7 @@
 import React from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Image } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import {
-  MapPin,
   ChevronLeft,
   ChevronRight,
   ArrowRight,
@@ -33,25 +32,27 @@ export default function MapHeader() {
         paddingHorizontal: design.spacing.md,
         paddingTop: design.spacing.sm,
         paddingBottom: design.spacing.md,
+        gap: design.spacing.md,
         borderBottomWidth: 1,
         borderBottomColor: theme.colors.outlineVariant,
-        gap: design.spacing.md,
       }}
     >
+      {/* Journey title */}
       <View>
         <Text
           style={{
             fontSize: design.typography.sizes.xs,
             color: theme.colors.onSurfaceVariant,
-            letterSpacing: 0.4,
+            letterSpacing: 0.6,
             textTransform: "uppercase",
           }}
         >
           Current journey
         </Text>
-
         <Text
+          numberOfLines={1}
           style={{
+            marginTop: 2,
             fontSize: design.typography.sizes.lg,
             fontWeight: design.typography.weights.bold,
             color: theme.colors.onSurface,
@@ -61,18 +62,17 @@ export default function MapHeader() {
         </Text>
       </View>
 
+      {/* Route summary */}
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
           gap: design.spacing.sm,
           padding: design.spacing.sm,
-          borderRadius: design.radii.xl,
+          borderRadius: design.radii.lg,
           backgroundColor: theme.colors.surfaceVariant,
         }}
       >
-        <MapPin size={18} color={theme.colors.primary} />
-
         <Text
           numberOfLines={1}
           style={{
@@ -83,9 +83,7 @@ export default function MapHeader() {
         >
           {start.name}
         </Text>
-
         <ArrowRight size={14} color={theme.colors.onSurfaceVariant} />
-
         <Text
           numberOfLines={1}
           style={{
@@ -99,31 +97,29 @@ export default function MapHeader() {
         </Text>
       </View>
 
+      {/* Active station card */}
       <View
         style={{
           flexDirection: "row",
           alignItems: "center",
-          gap: design.spacing.sm,
+          gap: design.spacing.md,
           padding: design.spacing.md,
           borderRadius: design.radii["2xl"],
           backgroundColor: theme.colors.surface,
-          elevation: 2,
+          elevation: design.elevation.level2,
         }}
       >
-        <View
+        {/* Stop image */}
+        <Image
+          source={activeStation.stopCover}
           style={{
-            width: 44,
-            height: 44,
-            borderRadius: 22,
-            alignItems: "center",
-            justifyContent: "center",
-            backgroundColor: theme.colors.primaryContainer,
+            width: 56,
+            height: 56,
+            borderRadius: design.radii.lg,
           }}
-        >
-          <MapPin size={20} color={theme.colors.primary} />
-        </View>
+        />
 
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, gap: 6 }}>
           <Text
             numberOfLines={1}
             style={{
@@ -136,7 +132,14 @@ export default function MapHeader() {
           </Text>
 
           <View style={{ flexDirection: "row", alignItems: "center", gap: 6 }}>
-            <Music2 size={12} color={theme.colors.onSurfaceVariant} />
+            <Image
+              source={activeStation.albumCover}
+              style={{
+                width: 16,
+                height: 16,
+                borderRadius: 4,
+              }}
+            />
             <Text
               numberOfLines={1}
               style={{
@@ -149,7 +152,8 @@ export default function MapHeader() {
           </View>
         </View>
 
-        <View style={{ alignItems: "center", gap: 4 }}>
+        {/* Progress + controls */}
+        <View style={{ alignItems: "center", gap: 6 }}>
           <Text
             style={{
               fontSize: design.typography.sizes.xs,
@@ -159,30 +163,42 @@ export default function MapHeader() {
             {progress.current}/{progress.total}
           </Text>
 
-          <View style={{ flexDirection: "row" }}>
+          <View style={{ flexDirection: "row", gap: 4 }}>
             <TouchableOpacity
               onPress={prevStation}
               disabled={activeStationIndex === 0}
+              activeOpacity={0.7}
               style={{
-                padding: design.spacing.xs,
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: theme.colors.surfaceVariant,
                 opacity: activeStationIndex === 0 ? 0.4 : 1,
               }}
             >
-              <ChevronLeft size={18} color={theme.colors.onSurface} />
+              <ChevronLeft size={16} color={theme.colors.onSurface} />
             </TouchableOpacity>
 
             <TouchableOpacity
               onPress={nextStation}
               disabled={activeStationIndex === activeRoute.stations.length - 1}
+              activeOpacity={0.7}
               style={{
-                padding: design.spacing.xs,
+                width: 28,
+                height: 28,
+                borderRadius: 14,
+                alignItems: "center",
+                justifyContent: "center",
+                backgroundColor: theme.colors.surfaceVariant,
                 opacity:
                   activeStationIndex === activeRoute.stations.length - 1
                     ? 0.4
                     : 1,
               }}
             >
-              <ChevronRight size={18} color={theme.colors.onSurface} />
+              <ChevronRight size={16} color={theme.colors.onSurface} />
             </TouchableOpacity>
           </View>
         </View>

@@ -40,6 +40,7 @@ export default function Journey() {
         overScrollMode="never"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
+          paddingTop: design.spacing.sm,
           paddingHorizontal: HORIZONTAL_OFFSET,
           paddingBottom: design.spacing["3xl"] * 2,
           gap: design.spacing.md,
