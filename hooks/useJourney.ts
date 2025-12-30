@@ -8,7 +8,7 @@ export type JourneyItem = {
   status: JourneyStatus;
   image: any;
   location?: string;
-  nowPlaying?: string;
+  mostPlayed?: string;
 };
 
 export default function useJourney() {
@@ -20,28 +20,28 @@ export default function useJourney() {
       date: "12 Aug 2025",
       status: "ACTIVE",
       location: "KL Sentral → Batu Caves",
-      nowPlaying: "Golden Steps",
+      mostPlayed: "Golden Steps",
       image: require("../assets/images/kl.jpg"),
     },
     {
       id: "journey-penang",
-      title: "Penang Heritage Walk",
+      title: "Penang Heritage Trail",
       subtitle: "Street art & old-town cafés",
       date: "08 Aug 2025",
       status: "COMPLETED",
       location: "George Town, Penang",
-      nowPlaying: "Old Town Echoes",
+      mostPlayed: "Old Town Echoes",
       image: require("../assets/images/penang.jpeg"),
     },
     {
       id: "journey-langkawi",
-      title: "Langkawi Island Drift",
+      title: "Rembau Getaway",
       subtitle: "Sea breeze & slow sunsets",
       date: "02 Aug 2025",
       status: "PAUSED",
       location: "Langkawi, Kedah",
-      nowPlaying: "Island Dusk",
-      image: require("../assets/images/langkawi.jpg"),
+      mostPlayed: "Island Dusk",
+      image: require("../assets/images/rembau.jpg"),
     },
   ];
 

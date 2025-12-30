@@ -20,6 +20,7 @@ import { AuthProvider, useAuthContext } from "../contexts/authContext";
 import { AppProvider, useApp } from "../contexts/appContext";
 import { MapsProvider } from "../contexts/mapsContext";
 import { MusicProvider } from "../contexts/musicContext";
+import { UploadProvider } from "../contexts/uploadContext";
 
 function AuthGate() {
   const { isReady: appReady, isFirstLaunch } = useApp();
@@ -94,21 +95,23 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
-      <MusicProvider>
-        <MapsProvider>
-          <AppProvider>
-            <TokenProvider>
-              <AuthProvider>
-                <ThemeProvider>
-                  <DesignProvider>
-                    <Providers />
-                  </DesignProvider>
-                </ThemeProvider>
-              </AuthProvider>
-            </TokenProvider>
-          </AppProvider>
-        </MapsProvider>
-      </MusicProvider>
+      <UploadProvider>
+        <MusicProvider>
+          <MapsProvider>
+            <AppProvider>
+              <TokenProvider>
+                <AuthProvider>
+                  <ThemeProvider>
+                    <DesignProvider>
+                      <Providers />
+                    </DesignProvider>
+                  </ThemeProvider>
+                </AuthProvider>
+              </TokenProvider>
+            </AppProvider>
+          </MapsProvider>
+        </MusicProvider>
+      </UploadProvider>
     </SafeAreaProvider>
   );
 }

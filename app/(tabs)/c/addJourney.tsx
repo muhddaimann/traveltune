@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView } from "react-native";
+import { View, ScrollView, Pressable } from "react-native";
 import { Text, TextInput, Button, useTheme } from "react-native-paper";
-import { MapPin, Music2, Plus } from "lucide-react-native";
+import { MapPin, Music2, Camera, Plus } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useDesign } from "../../../contexts/designContext";
 import AppHeader from "../../../components/shared/header";
 import { useTabsUi } from "../../../contexts/tabContext";
+import { useUpload } from "../../../hooks/useUpload";
+import { useUploadContext } from "../../../contexts/uploadContext";
 
-type JournalEntry = {
+type Stop = {
   id: string;
   location: string;
-  datetime: string;
   song: string;
   note: string;
 };
@@ -20,44 +21,39 @@ export default function AddJourney() {
   const { design } = useDesign();
   const insets = useSafeAreaInsets();
   const { hide, reveal } = useTabsUi();
+  const { file, openPicker } = useUpload();
+  const { upload, isUploading } = useUploadContext();
+
+  const [stops, setStops] = useState<Stop[]>([
+    {
+      id: "stop-1",
+      location: "KL Sentral",
+      song: "Di Bawah Bayu · Yuna",
+      note: "",
+    },
+  ]);
 
   useEffect(() => {
     hide();
     return () => reveal();
   }, [hide, reveal]);
 
-  const [entries, setEntries] = useState<JournalEntry[]>([
-    {
-      id: "entry-1",
-      location: "KL Sentral",
-      datetime: "12 Aug 2025 · 08:30",
-      song: "Midnight City · Local Pop Collective",
-      note: "Morning rush but calm vibes.",
-    },
-    {
-      id: "entry-2",
-      location: "Pasar Seni",
-      datetime: "12 Aug 2025 · 09:10",
-      song: "Street Poetry · Indie KL",
-      note: "Street art, buskers, coffee smells.",
-    },
-  ]);
-
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
       <ScrollView
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{
-          padding: design.spacing.md,
-          paddingBottom: design.spacing["3xl"] * 2 + insets.bottom,
+          paddingHorizontal: design.spacing.md,
+          paddingBottom: design.spacing["3xl"] + insets.bottom,
           gap: design.spacing.lg,
         }}
       >
-        <AppHeader title="New Journey" subtitle="Moments along the way" />
+        <AppHeader title="New Journey" subtitle="Add stops along the way" />
 
         <View style={{ gap: design.spacing.lg }}>
-          {entries.map((entry, index) => (
+          {stops.map((stop, index) => (
             <View
-              key={entry.id}
+              key={stop.id}
               style={{ flexDirection: "row", gap: design.spacing.md }}
             >
               <View style={{ alignItems: "center", width: 20 }}>
@@ -70,7 +66,7 @@ export default function AddJourney() {
                     marginTop: 6,
                   }}
                 />
-                {index < entries.length - 1 && (
+                {index < stops.length - 1 && (
                   <View
                     style={{
                       flex: 1,
@@ -85,12 +81,19 @@ export default function AddJourney() {
               <View
                 style={{
                   flex: 1,
-                  gap: design.spacing.sm,
+                  gap: design.spacing.md,
                   padding: design.spacing.md,
                   borderRadius: design.radii.xl,
                   backgroundColor: theme.colors.surface,
                 }}
               >
+                <Text
+                  variant="labelLarge"
+                  style={{ color: theme.colors.onSurfaceVariant }}
+                >
+                  Stop {index + 1}
+                </Text>
+
                 <View
                   style={{
                     flexDirection: "row",
@@ -101,23 +104,7 @@ export default function AddJourney() {
                   }}
                 >
                   <MapPin size={14} color={theme.colors.primary} />
-                  <Text
-                    style={{
-                      marginLeft: 6,
-                      fontWeight: design.typography.weights.semibold,
-                    }}
-                  >
-                    {entry.location}
-                  </Text>
-                  <Text
-                    style={{
-                      marginLeft: "auto",
-                      fontSize: design.typography.sizes.xs,
-                      color: theme.colors.onSurfaceVariant,
-                    }}
-                  >
-                    {entry.datetime}
-                  </Text>
+                  <Text style={{ marginLeft: 6 }}>{stop.location}</Text>
                 </View>
 
                 <View
@@ -130,26 +117,39 @@ export default function AddJourney() {
                   }}
                 >
                   <Music2 size={14} color={theme.colors.secondary} />
-                  <Text
-                    numberOfLines={1}
-                    style={{
-                      marginLeft: 6,
-                      fontSize: design.typography.sizes.sm,
-                      color: theme.colors.onSurfaceVariant,
-                    }}
-                  >
-                    {entry.song}
+                  <Text style={{ marginLeft: 6 }} numberOfLines={1}>
+                    {stop.song}
                   </Text>
                 </View>
+
+                <Pressable
+                  onPress={openPicker}
+                  style={{
+                    height: 140,
+                    borderRadius: design.radii.lg,
+                    borderWidth: 1.5,
+                    borderStyle: "dashed",
+                    borderColor: theme.colors.outlineVariant,
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: theme.colors.surfaceVariant,
+                    gap: 6,
+                  }}
+                >
+                  <Camera size={22} color={theme.colors.onSurfaceVariant} />
+                  <Text style={{ color: theme.colors.onSurfaceVariant }}>
+                    {file ? file.name : "Add photo or document"}
+                  </Text>
+                </Pressable>
 
                 <TextInput
                   mode="outlined"
                   placeholder="Add a short note"
-                  value={entry.note}
+                  value={stop.note}
                   onChangeText={(text) =>
-                    setEntries((prev) =>
-                      prev.map((e) =>
-                        e.id === entry.id ? { ...e, note: text } : e
+                    setStops((prev) =>
+                      prev.map((s) =>
+                        s.id === stop.id ? { ...s, note: text } : s
                       )
                     )
                   }
@@ -159,41 +159,40 @@ export default function AddJourney() {
             </View>
           ))}
         </View>
-      </ScrollView>
 
-      <View
-        style={{
-          flexDirection: "row",
-          gap: design.spacing.md,
-          paddingHorizontal: design.spacing.md,
-          paddingTop: design.spacing.md,
-          paddingBottom: design.spacing.md + insets.bottom,
-          borderTopWidth: 1,
-          borderTopColor: theme.colors.outlineVariant,
-          backgroundColor: theme.colors.background,
-        }}
-      >
         <Button
           mode="outlined"
-          style={{ flex: 1 }}
-          icon={({ size }) => <Plus size={size} color={theme.colors.primary} />}
+          icon={({ size }) => <Plus size={size} />}
           onPress={() =>
-            setEntries((prev) => [
+            setStops((prev) => [
               ...prev,
               {
-                id: `entry-${prev.length + 1}`,
+                id: `stop-${prev.length + 1}`,
                 location: "New stop",
-                datetime: "—",
                 song: "—",
                 note: "",
               },
             ])
           }
         >
-          Add moment
+          Add stop
         </Button>
+      </ScrollView>
 
-        <Button mode="contained" style={{ flex: 1 }} onPress={() => {}}>
+      <View
+        style={{
+          padding: design.spacing.md,
+          borderTopWidth: 1,
+          borderTopColor: theme.colors.outlineVariant,
+          backgroundColor: theme.colors.background,
+        }}
+      >
+        <Button
+          mode="contained"
+          loading={isUploading}
+          disabled={!file}
+          onPress={() => upload({ stops, file })}
+        >
           Save journey
         </Button>
       </View>

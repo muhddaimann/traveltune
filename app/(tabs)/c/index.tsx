@@ -6,7 +6,7 @@ import { useDesign } from "../../../contexts/designContext";
 import { useTabsUi } from "../../../contexts/tabContext";
 import PromptUI from "../../../components/shared/promptUI";
 import useJourney from "../../../hooks/useJourney";
-import JournalList from "../../../components/shared/journalList";
+import JournalList from "../../../components/c/journalList";
 import SectionHeader from "../../../components/shared/sectionHeader";
 import { MapPin, Plus } from "lucide-react-native";
 
