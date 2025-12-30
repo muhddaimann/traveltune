@@ -6,14 +6,14 @@ import PromptUI from "../../../components/shared/promptUI";
 import SectionHeader from "../../../components/shared/sectionHeader";
 import useLibrary from "../../../hooks/useLibrary";
 import LibraryList from "../../../components/d/libraryList";
-import { Music, Mic, Route } from "lucide-react-native";
+import { Music, Mic, Route, Heart } from "lucide-react-native";
 
-type LibraryTab = "JOURNEYS" | "PLAYLISTS" | "ARTISTS";
+type LibraryTab = "JOURNEYS" | "PLAYLISTS" | "ARTISTS" | "LIKED";
 
 export default function Library() {
   const theme = useTheme();
   const { design } = useDesign();
-  const { journeyLibraries, playlists, artists } = useLibrary();
+  const { journeyLibraries, playlists, artists, likedSongs } = useLibrary();
   const [enabled, setEnabled] = useState(false);
   const [tab, setTab] = useState<LibraryTab>("JOURNEYS");
 
@@ -25,17 +25,28 @@ export default function Library() {
         return playlists;
       case "ARTISTS":
         return artists;
+      case "LIKED":
+        return likedSongs;
     }
-  }, [tab, journeyLibraries, playlists, artists]);
+  }, [tab, journeyLibraries, playlists, artists, likedSongs]);
 
-  const icon = tab === "JOURNEYS" ? Route : tab === "PLAYLISTS" ? Music : Mic;
+  const icon =
+    tab === "JOURNEYS"
+      ? Route
+      : tab === "PLAYLISTS"
+      ? Music
+      : tab === "ARTISTS"
+      ? Mic
+      : Heart;
 
   const subtitle =
     tab === "JOURNEYS"
       ? "Music captured along your journeys"
       : tab === "PLAYLISTS"
       ? "Your saved playlists"
-      : "Artists you follow";
+      : tab === "ARTISTS"
+      ? "Artists you follow"
+      : "Songs you’ve liked";
 
   return (
     <ScrollView
@@ -64,37 +75,39 @@ export default function Library() {
       {!enabled ? (
         <PromptUI
           title="Your library is empty"
-          description="Journeys, playlists, and artists you save will appear here."
+          description="Journeys, playlists, artists, and liked songs will appear here."
           actionLabel="Explore music"
           onAction={() => setEnabled(true)}
         />
       ) : (
         <View style={{ gap: design.spacing.md }}>
           <View style={{ flexDirection: "row", gap: design.spacing.sm }}>
-            {(["JOURNEYS", "PLAYLISTS", "ARTISTS"] as LibraryTab[]).map(
-              (key) => (
-                <Pressable key={key} onPress={() => setTab(key)}>
-                  <Text
-                    variant="labelLarge"
-                    style={{
-                      color:
-                        tab === key
-                          ? theme.colors.primary
-                          : theme.colors.onSurfaceVariant,
-                    }}
-                  >
-                    {key === "JOURNEYS"
-                      ? "Journeys"
-                      : key === "PLAYLISTS"
-                      ? "Playlists"
-                      : "Artists"}
-                  </Text>
-                </Pressable>
-              )
-            )}
+            {(
+              ["LIKED", "JOURNEYS", "PLAYLISTS", "ARTISTS"] as LibraryTab[]
+            ).map((key) => (
+              <Pressable key={key} onPress={() => setTab(key)}>
+                <Text
+                  variant="labelLarge"
+                  style={{
+                    color:
+                      tab === key
+                        ? theme.colors.primary
+                        : theme.colors.onSurfaceVariant,
+                  }}
+                >
+                  {key === "LIKED"
+                    ? "Liked"
+                    : key === "JOURNEYS"
+                    ? "Journeys"
+                    : key === "PLAYLISTS"
+                    ? "Playlists"
+                    : "Artists"}
+                </Text>
+              </Pressable>
+            ))}
           </View>
 
-          <LibraryList data={data} />
+          <LibraryList data={data} type={tab} />
         </View>
       )}
     </ScrollView>

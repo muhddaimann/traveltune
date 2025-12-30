@@ -1,7 +1,7 @@
-import { Music, Mic } from "lucide-react-native";
+import { Music, Mic, Heart } from "lucide-react-native";
 import { ImageSourcePropType } from "react-native";
 
-export type LibraryTab = "JOURNEYS" | "PLAYLISTS" | "ARTISTS";
+export type LibraryTab = "JOURNEYS" | "PLAYLISTS" | "ARTISTS" | "LIKED";
 
 export type LibraryTrack = {
   id: string;
@@ -9,6 +9,7 @@ export type LibraryTrack = {
   artist: string;
   duration?: string;
   station?: string;
+  image?: ImageSourcePropType;
 };
 
 export type JourneyLibraryItem = {
@@ -70,6 +71,7 @@ export default function useLibrary() {
               title: "Midnight City",
               artist: "Local Pop Collective",
               station: "KL Sentral",
+              image: require("../assets/images/city.jpg"),
             },
           ],
         },
@@ -82,18 +84,19 @@ export default function useLibrary() {
               title: "Street Poetry",
               artist: "Indie KL",
               station: "Pasar Seni",
+              image: require("../assets/images/night.jpg"),
             },
           ],
         },
       ],
     },
     {
-      id: "journey-lib-penang-day",
+      id: "journey-lib-penang",
       journeyId: "journey-penang-day",
       title: "Penang Day Walk",
-      subtitle: "Street food & old towns",
+      subtitle: "Street food & murals",
       place: "George Town",
-      trackCount: 6,
+      trackCount: 5,
       cover: require("../assets/images/penang.jpeg"),
       stops: [
         {
@@ -105,6 +108,7 @@ export default function useLibrary() {
               title: "Morning Stroll",
               artist: "Acoustic MY",
               station: "Armenian Street",
+              image: require("../assets/images/penang.jpeg"),
             },
           ],
         },
@@ -124,6 +128,7 @@ export default function useLibrary() {
           id: "pl-1",
           title: "Concrete Skies",
           artist: "Midnight Collective",
+          image: require("../assets/images/city.jpg"),
         },
       ],
     },
@@ -138,6 +143,7 @@ export default function useLibrary() {
           id: "pl-2",
           title: "Neon Drift",
           artist: "Afterhours",
+          image: require("../assets/images/night.jpg"),
         },
       ],
     },
@@ -145,34 +151,75 @@ export default function useLibrary() {
 
   const artists: ArtistItem[] = [
     {
-      id: "aisyah-rosli",
+      id: "siti-nurhaliza",
       name: "Siti Nurhaliza",
-      genre: "Traditional · Ambient",
+      genre: "Traditional · Pop",
       image: require("../assets/images/ct.jpeg"),
       popularTracks: [
         {
           id: "ar-1",
-          title: "Rainforest Dream",
-          artist: "Aisyah Rosli",
+          title: "Cindai",
+          artist: "Siti Nurhaliza",
+          image: require("../assets/images/ct.jpeg"),
         },
       ],
     },
     {
-      id: "Erra Fazira",
-      name: "Midnight Collective",
-      genre: "Electronic · Chill",
+      id: "midnight-collective",
+      name: "Erra Fazira",
+      genre: "Traditional · Pop",
       image: require("../assets/images/erra.jpeg"),
       popularTracks: [
         {
           id: "ar-2",
           title: "After Dark",
           artist: "Midnight Collective",
+          image: require("../assets/images/night.jpg"),
         },
       ],
     },
   ];
 
+  const likedSongs: LibraryTrack[] = [
+    {
+      id: "liked-1",
+      title: "Cindai",
+      artist: "Siti Nurhaliza",
+      image: require("../assets/images/ct.jpeg"),
+    },
+    {
+      id: "liked-2",
+      title: "Pulang",
+      artist: "Insomniacks",
+      image: require("../assets/images/erra.jpeg"),
+    },
+    {
+      id: "liked-3",
+      title: "Sampai Syurga",
+      artist: "Faizal Tahir",
+      image: require("../assets/images/erra.jpeg"),
+    },
+    {
+      id: "liked-4",
+      title: "Angan",
+      artist: "Masdo",
+      image: require("../assets/images/erra.jpeg"),
+    },
+    {
+      id: "liked-5",
+      title: "Hanya Rindu",
+      artist: "Andmesh Kamaleng",
+      image: require("../assets/images/erra.jpeg"),
+    },
+  ];
+
   const sections: LibrarySection<any>[] = [
+    {
+      key: "LIKED",
+      title: "Liked Songs",
+      icon: Heart,
+      items: likedSongs,
+    },
     {
       key: "JOURNEYS",
       title: "Journey Libraries",
@@ -197,6 +244,7 @@ export default function useLibrary() {
     journeyLibraries,
     playlists,
     artists,
+    likedSongs,
     sections,
   };
 }

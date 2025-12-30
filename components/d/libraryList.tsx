@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Image, Pressable, ScrollView } from "react-native";
+import { View, Image, Pressable, ScrollView, Alert } from "react-native";
 import {
   Text,
   Portal,
@@ -9,7 +9,7 @@ import {
   useTheme,
   Divider,
 } from "react-native-paper";
-import { Music, MapPin } from "lucide-react-native";
+import { Music, MapPin, Heart } from "lucide-react-native";
 import { useDesign } from "../../contexts/designContext";
 
 type LibraryItem = {
@@ -22,7 +22,8 @@ type LibraryItem = {
   place?: string;
   image?: any;
   cover?: any;
-  tracks?: { id: string; title: string; artist: string }[];
+  tracks?: { id: string; title: string; artist: string; image?: any }[];
+  artist?: string;
   stops?: {
     station: string;
     vibe: string;
@@ -32,13 +33,26 @@ type LibraryItem = {
 
 type LibraryListProps = {
   data: LibraryItem[];
-  type: "JOURNEYS" | "PLAYLISTS" | "ARTISTS";
+  type: "JOURNEYS" | "PLAYLISTS" | "ARTISTS" | "LIKED";
 };
 
 export default function LibraryList({ data, type }: LibraryListProps) {
   const theme = useTheme();
   const { design } = useDesign();
   const [selected, setSelected] = useState<LibraryItem | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  const onRemove = async () => {
+    try {
+      setLoading(true);
+      throw new Error("Remove failed");
+    } catch (e) {
+      Alert.alert("Action failed", "Unable to remove this item. Try again.");
+    } finally {
+      setLoading(false);
+      setSelected(null);
+    }
+  };
 
   return (
     <>
@@ -49,6 +63,7 @@ export default function LibraryList({ data, type }: LibraryListProps) {
             onPress={() => setSelected(item)}
             style={({ pressed }) => ({
               flexDirection: "row",
+              alignItems: "center",
               gap: design.spacing.md,
               padding: design.spacing.md,
               borderRadius: design.radii.xl,
@@ -60,55 +75,48 @@ export default function LibraryList({ data, type }: LibraryListProps) {
               <Image
                 source={item.image ?? item.cover}
                 style={{
-                  width: 72,
-                  height: 72,
-                  borderRadius: design.radii.lg,
+                  width: type === "LIKED" ? 56 : 72,
+                  height: type === "LIKED" ? 56 : 72,
+                  borderRadius:
+                    type === "LIKED" ? design.radii.full : design.radii.lg,
                 }}
               />
             )}
 
-            <View style={{ flex: 1, gap: 4 }}>
-              <Text
-                variant="titleSmall"
-                numberOfLines={1}
-                style={{ color: theme.colors.onSurface }}
-              >
+            <View style={{ flex: 1, gap: 2 }}>
+              <Text variant="titleSmall" numberOfLines={1}>
                 {item.title ?? item.name}
               </Text>
 
-              {(item.subtitle || item.genre) && (
+              {(item.artist || item.subtitle || item.genre) && (
                 <Text
                   variant="bodySmall"
                   numberOfLines={1}
                   style={{ color: theme.colors.onSurfaceVariant }}
                 >
-                  {item.subtitle ?? item.genre}
+                  {item.artist ?? item.subtitle ?? item.genre}
                 </Text>
               )}
 
-              <View style={{ flexDirection: "row", gap: 6, marginTop: 4 }}>
-                {item.place && (
-                  <Chip
-                    compact
-                    icon={() => (
-                      <MapPin size={12} color={theme.colors.primary} />
-                    )}
-                  >
-                    {item.place}
-                  </Chip>
-                )}
-                {item.trackCount !== undefined && (
-                  <Chip
-                    compact
-                    icon={() => (
-                      <Music size={12} color={theme.colors.secondary} />
-                    )}
-                  >
-                    {item.trackCount} tracks
-                  </Chip>
-                )}
-              </View>
+              {type !== "LIKED" && (
+                <View style={{ flexDirection: "row", gap: 6, marginTop: 4 }}>
+                  {item.place && (
+                    <Chip compact icon={() => <MapPin size={12} />}>
+                      {item.place}
+                    </Chip>
+                  )}
+                  {item.trackCount !== undefined && (
+                    <Chip compact icon={() => <Music size={12} />}>
+                      {item.trackCount} tracks
+                    </Chip>
+                  )}
+                </View>
+              )}
             </View>
+
+            {type === "LIKED" && (
+              <Heart size={18} color={theme.colors.primary} />
+            )}
           </Pressable>
         ))}
       </View>
@@ -124,119 +132,58 @@ export default function LibraryList({ data, type }: LibraryListProps) {
           }}
         >
           {selected && (
-            <View
-              style={{
-                borderRadius: design.radii["2xl"],
-                overflow: "hidden",
+            <ScrollView
+              contentContainerStyle={{
+                padding: design.spacing.lg,
+                gap: design.spacing.md,
               }}
             >
-              <ScrollView
-                contentContainerStyle={{
-                  padding: design.spacing.lg,
-                  gap: design.spacing.md,
-                }}
-              >
-                {(selected.image || selected.cover) && (
-                  <Image
-                    source={selected.image ?? selected.cover}
-                    style={{
-                      width: "100%",
-                      height: 180,
-                      borderRadius: design.radii.xl,
-                    }}
-                  />
-                )}
-
-                <View style={{ gap: 4 }}>
-                  <Text
-                    variant="titleMedium"
-                    style={{ color: theme.colors.onSurface }}
-                  >
-                    {selected.title ?? selected.name}
-                  </Text>
-
-                  {(selected.subtitle || selected.genre) && (
-                    <Text
-                      variant="bodySmall"
-                      style={{ color: theme.colors.onSurfaceVariant }}
-                    >
-                      {selected.subtitle ?? selected.genre}
-                    </Text>
-                  )}
-                </View>
-
-                {type === "JOURNEYS" && selected.stops && (
-                  <View style={{ gap: design.spacing.sm }}>
-                    <Text variant="labelLarge">Journey stops</Text>
-                    {selected.stops.map((stop) => (
-                      <View
-                        key={stop.station}
-                        style={{
-                          padding: design.spacing.sm,
-                          borderRadius: design.radii.md,
-                          backgroundColor: theme.colors.surfaceVariant,
-                          gap: 4,
-                        }}
-                      >
-                        <Text style={{ fontWeight: "600" }}>
-                          {stop.station}
-                        </Text>
-                        <Text
-                          variant="bodySmall"
-                          style={{ color: theme.colors.onSurfaceVariant }}
-                        >
-                          {stop.vibe}
-                        </Text>
-                        {stop.tracks.map((t) => (
-                          <Text
-                            key={t.id}
-                            variant="bodySmall"
-                            style={{ marginLeft: 6 }}
-                          >
-                            • {t.title} · {t.artist}
-                          </Text>
-                        ))}
-                      </View>
-                    ))}
-                  </View>
-                )}
-
-                {type === "PLAYLISTS" && selected.tracks && (
-                  <View style={{ gap: design.spacing.sm }}>
-                    <Text variant="labelLarge">Tracks</Text>
-                    {selected.tracks.map((t) => (
-                      <Text key={t.id} variant="bodySmall">
-                        • {t.title} · {t.artist}
-                      </Text>
-                    ))}
-                  </View>
-                )}
-
-                <Divider />
-
-                <View
+              {(selected.image || selected.cover) && (
+                <Image
+                  source={selected.image ?? selected.cover}
                   style={{
-                    flexDirection: "row",
-                    gap: design.spacing.sm,
+                    width: "100%",
+                    height: 180,
+                    borderRadius: design.radii.xl,
                   }}
+                />
+              )}
+
+              <View>
+                <Text variant="titleMedium">
+                  {selected.title ?? selected.name}
+                </Text>
+                {(selected.artist || selected.subtitle || selected.genre) && (
+                  <Text
+                    variant="bodySmall"
+                    style={{ color: theme.colors.onSurfaceVariant }}
+                  >
+                    {selected.artist ?? selected.subtitle ?? selected.genre}
+                  </Text>
+                )}
+              </View>
+
+              <Divider />
+
+              <View style={{ flexDirection: "row", gap: design.spacing.sm }}>
+                <Button
+                  mode="outlined"
+                  style={{ flex: 1 }}
+                  onPress={() => setSelected(null)}
                 >
-                  <Button
-                    mode="outlined"
-                    style={{ flex: 1 }}
-                    onPress={() => setSelected(null)}
-                  >
-                    Edit
-                  </Button>
-                  <Button
-                    mode="contained"
-                    style={{ flex: 1 }}
-                    onPress={() => setSelected(null)}
-                  >
-                    Delete
-                  </Button>
-                </View>
-              </ScrollView>
-            </View>
+                  Cancel
+                </Button>
+                <Button
+                  mode="contained"
+                  loading={loading}
+                  buttonColor={theme.colors.error}
+                  style={{ flex: 1 }}
+                  onPress={onRemove}
+                >
+                  Remove
+                </Button>
+              </View>
+            </ScrollView>
           )}
         </Modal>
       </Portal>

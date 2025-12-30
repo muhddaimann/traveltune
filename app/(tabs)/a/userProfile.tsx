@@ -28,109 +28,98 @@ export default function UserProfile() {
       <ScrollView
         contentContainerStyle={{
           padding: design.spacing.md,
-          paddingBottom: design.spacing["3xl"] + insets.bottom,
-          gap: design.spacing.lg,
+          paddingBottom: design.spacing.xl + insets.bottom,
+          gap: design.spacing.md,
         }}
       >
         <AppHeader
           title="Profile"
-          subtitle="Your music & journey identity"
           rightSlot={<Switch value={useMock} onValueChange={toggleMock} />}
         />
 
         <View
           style={{
-            alignItems: "center",
-            gap: design.spacing.sm,
-            padding: design.spacing.lg,
-            borderRadius: design.radii["2xl"],
-            backgroundColor: theme.colors.surface,
-          }}
-        >
-          {profile.avatar ? (
-            <Image
-              source={profile.avatar}
-              style={{ width: 96, height: 96, borderRadius: 48 }}
-            />
-          ) : (
-            <View
-              style={{
-                width: 96,
-                height: 96,
-                borderRadius: 48,
-                backgroundColor: theme.colors.surfaceVariant,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <User size={32} color={theme.colors.onSurfaceVariant} />
-            </View>
-          )}
-
-          <Text variant="titleMedium">{profile.name}</Text>
-          <Text
-            variant="bodySmall"
-            style={{ color: theme.colors.onSurfaceVariant }}
-          >
-            {profile.username}
-          </Text>
-
-          {profile.location && (
-            <View style={{ flexDirection: "row", gap: 6 }}>
-              <MapPin size={14} color={theme.colors.primary} />
-              <Text variant="bodySmall">{profile.location}</Text>
-            </View>
-          )}
-
-          {profile.bio && (
-            <Text
-              variant="bodySmall"
-              style={{
-                textAlign: "center",
-                color: theme.colors.onSurfaceVariant,
-              }}
-            >
-              {profile.bio}
-            </Text>
-          )}
-        </View>
-
-        <View
-          style={{
             flexDirection: "row",
-            justifyContent: "space-between",
-            backgroundColor: theme.colors.surfaceVariant,
-            padding: design.spacing.md,
-            borderRadius: design.radii.xl,
-          }}
-        >
-          <View style={{ alignItems: "center" }}>
-            <Text variant="titleSmall">{profile.stats.journeys}</Text>
-            <Text variant="bodySmall">Journeys</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text variant="titleSmall">{profile.stats.playlists}</Text>
-            <Text variant="bodySmall">Playlists</Text>
-          </View>
-          <View style={{ alignItems: "center" }}>
-            <Text variant="titleSmall">{profile.stats.artists}</Text>
-            <Text variant="bodySmall">Artists</Text>
-          </View>
-        </View>
-
-        <View
-          style={{
+            alignItems: "center",
             gap: design.spacing.md,
             padding: design.spacing.md,
             borderRadius: design.radii.xl,
             backgroundColor: theme.colors.surface,
           }}
         >
+          {profile.avatar ? (
+            <Image
+              source={profile.avatar}
+              style={{ width: 56, height: 56, borderRadius: 28 }}
+            />
+          ) : (
+            <View
+              style={{
+                width: 56,
+                height: 56,
+                borderRadius: 28,
+                backgroundColor: theme.colors.surfaceVariant,
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <User size={20} color={theme.colors.onSurfaceVariant} />
+            </View>
+          )}
+
+          <View style={{ flex: 1, gap: 2 }}>
+            <Text variant="titleSmall">{profile.name}</Text>
+            <Text
+              variant="bodySmall"
+              style={{ color: theme.colors.onSurfaceVariant }}
+            >
+              {profile.username}
+            </Text>
+
+            {profile.location && (
+              <View style={{ flexDirection: "row", gap: 4 }}>
+                <MapPin size={12} color={theme.colors.primary} />
+                <Text variant="bodySmall">{profile.location}</Text>
+              </View>
+            )}
+          </View>
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+            backgroundColor: theme.colors.surfaceVariant,
+            borderRadius: design.radii.lg,
+            paddingVertical: design.spacing.sm,
+          }}
+        >
+          {[
+            ["Journeys", profile.stats.journeys],
+            ["Playlists", profile.stats.playlists],
+            ["Artists", profile.stats.artists],
+          ].map(([label, value]) => (
+            <View key={label} style={{ flex: 1, alignItems: "center" }}>
+              <Text variant="titleSmall">{value}</Text>
+              <Text variant="bodySmall">{label}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View
+          style={{
+            gap: design.spacing.sm,
+            padding: design.spacing.md,
+            borderRadius: design.radii.lg,
+            backgroundColor: theme.colors.surface,
+          }}
+        >
           <Text variant="labelLarge">Preferences</Text>
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Music size={16} />
-            <Text style={{ flex: 1, marginLeft: 8 }}>Auto play music</Text>
+            <Music size={14} />
+            <Text style={{ flex: 1, marginLeft: 8 }} variant="bodySmall">
+              Auto play music
+            </Text>
             <Switch
               value={preferences.autoPlay}
               onValueChange={() => togglePreference("autoPlay")}
@@ -140,8 +129,8 @@ export default function UserProfile() {
           <Divider />
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <User size={16} />
-            <Text style={{ flex: 1, marginLeft: 8 }}>
+            <User size={14} />
+            <Text style={{ flex: 1, marginLeft: 8 }} variant="bodySmall">
               Download on Wi-Fi only
             </Text>
             <Switch
@@ -153,7 +142,9 @@ export default function UserProfile() {
           <Divider />
 
           <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Text style={{ flex: 1 }}>Filter explicit content</Text>
+            <Text style={{ flex: 1 }} variant="bodySmall">
+              Filter explicit content
+            </Text>
             <Switch
               value={preferences.explicitFilter}
               onValueChange={() => togglePreference("explicitFilter")}
@@ -161,17 +152,19 @@ export default function UserProfile() {
           </View>
         </View>
 
-        <Button mode="outlined" disabled={!useMock}>
-          Edit profile
-        </Button>
-
-        <Button
-          mode="contained"
-          buttonColor={theme.colors.error}
-          onPress={logout}
-        >
-          Log out
-        </Button>
+        <View style={{ flexDirection: "row", gap: design.spacing.sm }}>
+          <Button mode="outlined" disabled={!useMock} style={{ flex: 1 }}>
+            Edit
+          </Button>
+          <Button
+            mode="contained"
+            buttonColor={theme.colors.error}
+            onPress={logout}
+            style={{ flex: 1 }}
+          >
+            Logout
+          </Button>
+        </View>
       </ScrollView>
     </View>
   );

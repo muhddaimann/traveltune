@@ -138,5 +138,88 @@ traveltune/
 ├─ README.md
 └─ tsconfig.json
 
+traveltune/
+├─ app/
+│  ├─ (tabs)/
+│  │  ├─ a/
+│  │  │  ├─ _layout.tsx
+│  │  │  ├─ browseCity.tsx
+│  │  │  ├─ index.tsx
+│  │  │  ├─ nearbySuggest.tsx
+│  │  │  ├─ travelMood.tsx
+│  │  │  └─ userProfile.tsx
+│  │  ├─ b/
+│  │  │  ├─ _layout.tsx
+│  │  │  └─ index.tsx
+│  │  ├─ c/
+│  │  │  ├─ _layout.tsx
+│  │  │  ├─ addJourney.tsx
+│  │  │  └─ index.tsx
+│  │  ├─ d/
+│  │  │  ├─ _layout.tsx
+│  │  │  └─ index.tsx
+│  │  └─ _layout.tsx
+│  ├─ _layout.tsx
+│  ├─ forgot.tsx
+│  ├─ goodbye.tsx
+│  ├─ index.tsx
+│  ├─ land.tsx
+│  ├─ signIn.tsx
+│  ├─ signUp.tsx
+│  └─ welcome.tsx
+├─ components/
+│  ├─ a/
+│  │  ├─ header.tsx
+│  │  └─ quickAction.tsx
+│  ├─ b/
+│  │  └─ header.tsx
+│  ├─ c/
+│  │  ├─ header.tsx
+│  │  └─ journalList.tsx
+│  ├─ d/
+│  │  ├─ header.tsx
+│  │  └─ libraryList.tsx
+│  └─ shared/
+│     ├─ customGrid.tsx
+│     ├─ fullList.tsx
+│     ├─ header.tsx
+│     ├─ horizontalList.tsx
+│     ├─ mainSearch.tsx
+│     ├─ masonryGrid.tsx
+│     ├─ memoryList.tsx
+│     ├─ miniPlayer.tsx
+│     ├─ navBar.tsx
+│     ├─ promptUI.tsx
+│     ├─ sectionHeader.tsx
+│     └─ twoCard.tsx
+├─ constants/
+│  ├─ design.ts
+│  └─ theme.ts
+├─ contexts/
+│  ├─ appContext.tsx
+│  ├─ authContext.tsx
+│  ├─ designContext.tsx
+│  ├─ mapsContext.tsx
+│  ├─ musicContext.tsx
+│  ├─ tabContext.tsx
+│  ├─ themeContext.tsx
+│  ├─ tokenContext.tsx
+│  └─ uploadContext.tsx
+├─ hooks/
+│  ├─ useAuth.ts
+│  ├─ useDiscover.ts
+│  ├─ useJourney.ts
+│  ├─ useLibrary.ts
+│  ├─ useMaps.ts
+│  ├─ useProfile.ts
+│  └─ useUpload.ts
+├─ .gitignore
+├─ app.json
+├─ package-lock.json
+├─ package.json
+├─ README.md
+└─ tsconfig.json
+
+
 
 ```
