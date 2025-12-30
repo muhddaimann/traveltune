@@ -1,6 +1,7 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Pressable } from "react-native";
 import { Text, Avatar, IconButton, useTheme } from "react-native-paper";
+import { useRouter } from "expo-router";
 import { useDesign } from "../../contexts/designContext";
 import MainSearch from "../shared/mainSearch";
 import QuickActions from "./quickAction";
@@ -12,6 +13,7 @@ type HeaderProps = {
 export default function Header({ name = "Traveler" }: HeaderProps) {
   const theme = useTheme();
   const { design } = useDesign();
+  const router = useRouter();
 
   return (
     <View
@@ -93,12 +95,20 @@ export default function Header({ name = "Traveler" }: HeaderProps) {
             />
           </View>
 
-          <Avatar.Icon
-            size={40}
-            icon="account"
-            style={{ backgroundColor: theme.colors.surfaceVariant }}
-            color={theme.colors.onSurfaceVariant}
-          />
+          <Pressable
+            onPress={() => router.push("/(tabs)/a/userProfile")}
+            style={({ pressed }) => ({
+              borderRadius: 20,
+              opacity: pressed ? 0.7 : 1,
+            })}
+          >
+            <Avatar.Icon
+              size={40}
+              icon="account"
+              style={{ backgroundColor: theme.colors.surfaceVariant }}
+              color={theme.colors.onSurfaceVariant}
+            />
+          </Pressable>
         </View>
       </View>
 

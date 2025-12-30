@@ -4,7 +4,6 @@ import { Switch, useTheme, FAB } from "react-native-paper";
 import { useRouter } from "expo-router";
 import { useDesign } from "../../../contexts/designContext";
 import { useTabsUi } from "../../../contexts/tabContext";
-import JourneyHeader from "../../../components/c/header";
 import PromptUI from "../../../components/shared/promptUI";
 import useJourney from "../../../hooks/useJourney";
 import JournalList from "../../../components/shared/journalList";
@@ -48,8 +47,6 @@ export default function Journey() {
         onScroll={(e) => updateByOffset(e.nativeEvent.contentOffset.y)}
         scrollEventThrottle={16}
       >
-        <JourneyHeader />
-
         <SectionHeader
           title="Journeys"
           subtitle="Capture memories tied to music and place"

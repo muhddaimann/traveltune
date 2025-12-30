@@ -23,25 +23,34 @@ export default function AppHeader({
   const { design } = useDesign();
   const router = useRouter();
 
+  const TOUCH_SIZE = design.sizes.touch.minHeight;
+  const SIDE_WIDTH = TOUCH_SIZE + design.spacing.md;
+
   return (
     <View
       style={{
         paddingBottom: design.spacing.md,
+        paddingTop: design.spacing.xs,
         backgroundColor: colors.background,
         flexDirection: "row",
         alignItems: "center",
-        justifyContent: "space-between",
       }}
     >
-      <View style={{ width: 40 }}>
+      <View
+        style={{
+          width: SIDE_WIDTH,
+          alignItems: "flex-start",
+          justifyContent: "center",
+        }}
+      >
         {leftSlot ?? (
           <TouchableOpacity
             onPress={() => router.back()}
-            activeOpacity={0.8}
+            activeOpacity={0.7}
             style={{
-              width: 36,
-              height: 36,
-              borderRadius: 18,
+              width: TOUCH_SIZE,
+              height: TOUCH_SIZE,
+              borderRadius: design.radii.full,
               alignItems: "center",
               justifyContent: "center",
               backgroundColor: colors.primary,
@@ -55,14 +64,17 @@ export default function AppHeader({
       <View
         style={{
           flex: 1,
-          alignItems: "flex-start",
-          paddingHorizontal: design.spacing.sm,
+          paddingLeft: design.spacing.xxs,
+          justifyContent: "center",
         }}
       >
         <Text
           variant="titleMedium"
           numberOfLines={1}
-          style={{ color: colors.onBackground }}
+          style={{
+            color: colors.onBackground,
+            fontWeight: design.typography.weights.semibold,
+          }}
         >
           {title}
         </Text>
@@ -71,14 +83,25 @@ export default function AppHeader({
           <Text
             variant="bodySmall"
             numberOfLines={1}
-            style={{ color: colors.onSurfaceVariant }}
+            style={{
+              color: colors.onSurfaceVariant,
+              marginTop: 2,
+            }}
           >
             {subtitle}
           </Text>
         )}
       </View>
 
-      <View style={{ width: 40, alignItems: "flex-end" }}>{rightSlot}</View>
+      <View
+        style={{
+          width: SIDE_WIDTH,
+          alignItems: "flex-end",
+          justifyContent: "center",
+        }}
+      >
+        {rightSlot}
+      </View>
     </View>
   );
 }

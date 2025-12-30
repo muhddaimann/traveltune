@@ -23,20 +23,18 @@ export function CustomTabBar({
         bottom: insets.bottom + 10,
         left: 16,
         right: 16,
-        paddingVertical: 12,
-        paddingHorizontal: 20,
+        padding: 8,
         borderRadius: 32,
         backgroundColor: colors.surface,
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
         opacity,
         transform: [{ scale }],
-        elevation: 6,
+        elevation: 8,
         shadowColor: colors.shadow,
-        shadowOpacity: 0.12,
-        shadowRadius: 6,
-        shadowOffset: { width: 0, height: 3 },
+        shadowOpacity: 0.14,
+        shadowRadius: 10,
+        shadowOffset: { width: 0, height: 4 },
       }}
       pointerEvents={opacity === 0 ? "none" : "auto"}
     >
@@ -66,25 +64,37 @@ export function CustomTabBar({
           <TouchableOpacity
             key={route.key}
             onPress={onPress}
-            activeOpacity={0.8}
+            activeOpacity={0.85}
             style={{
               flex: 1,
               alignItems: "center",
               justifyContent: "center",
+              paddingVertical: isFocused ? 10 : 8,
+              borderRadius: 24,
+              backgroundColor: isFocused
+                ? colors.primary
+                : "transparent",
             }}
           >
             {Icon && (
               <Icon
-                size={22}
-                color={isFocused ? colors.primary : colors.onSurfaceVariant}
+                size={isFocused ? 24 : 22}
+                color={
+                  isFocused
+                    ? colors.onPrimary
+                    : colors.onSurface
+                }
               />
             )}
 
             <Text
-              variant="labelSmall"
+              variant={isFocused ? "labelMedium" : "labelSmall"}
               style={{
                 marginTop: 4,
-                color: isFocused ? colors.primary : colors.onSurfaceVariant,
+                color: isFocused
+                  ? colors.onPrimary
+                  : colors.onSurface,
+                fontWeight: isFocused ? "600" : "400",
               }}
             >
               {label}

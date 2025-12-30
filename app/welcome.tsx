@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, Image } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppTheme } from "../contexts/themeContext";
 import { useDesign } from "../contexts/designContext";
@@ -28,8 +28,19 @@ export default function Welcome() {
         justifyContent: "center",
         padding: design.spacing.lg,
         backgroundColor: theme.colors.background,
+        gap: design.spacing.lg,
       }}
     >
+      <Image
+        source={require("../assets/icon.png")}
+        style={{
+          width: 96,
+          height: 96,
+          borderRadius: design.radii.lg,
+        }}
+        resizeMode="contain"
+      />
+
       <Text
         variant="headlineMedium"
         style={{ color: theme.colors.onBackground }}
@@ -40,8 +51,7 @@ export default function Welcome() {
       <Text
         variant="bodyLarge"
         style={{
-          marginTop: design.spacing.md,
-          color: theme.colors.onBackground,
+          color: theme.colors.onSurfaceVariant,
         }}
       >
         Loading your journeys…

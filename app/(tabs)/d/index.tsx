@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { View, Pressable } from "react-native";
 import { Text, Switch, useTheme } from "react-native-paper";
 import { useDesign } from "../../../contexts/designContext";
-import JourneyHeader from "../../../components/c/header";
 import PromptUI from "../../../components/shared/promptUI";
 import SectionHeader from "../../../components/shared/sectionHeader";
 import useLibrary from "../../../hooks/useLibrary";
@@ -47,8 +46,6 @@ export default function Library() {
         gap: design.spacing.md,
       }}
     >
-      <JourneyHeader />
-
       <SectionHeader
         title="Library"
         subtitle={subtitle}

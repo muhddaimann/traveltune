@@ -68,7 +68,7 @@ export default function useDiscover() {
           subtitle: "Urban pop, city rhythms",
           avatarIcon: "map",
           image: require("../assets/images/kl.jpg"),
-        },
+         },
         {
           id: "penang",
           title: "Penang",

@@ -49,8 +49,8 @@ export default function useMaps() {
             latitude: 3.1347,
             longitude: 101.6859,
             song: {
-              title: "Midnight City",
-              artist: "Local Pop Collective",
+              title: "Di Bawah Bayu",
+              artist: "Yuna",
             },
           },
           {
@@ -62,8 +62,8 @@ export default function useMaps() {
             latitude: 3.1422,
             longitude: 101.6958,
             song: {
-              title: "Street Poetry",
-              artist: "Indie KL",
+              title: "Angkasa",
+              artist: "Siti Nurhaliza",
             },
           },
           {
@@ -75,8 +75,8 @@ export default function useMaps() {
             latitude: 3.1727,
             longitude: 101.6953,
             song: {
-              title: "Lake Reflections",
-              artist: "Ambient MY",
+              title: "Pulang",
+              artist: "Insomniacks",
             },
           },
           {
@@ -88,8 +88,8 @@ export default function useMaps() {
             latitude: 3.2375,
             longitude: 101.6836,
             song: {
-              title: "Golden Steps",
-              artist: "Traditional Fusion",
+              title: "Gemilang",
+              artist: "Jaclyn Victor",
             },
           },
         ],
