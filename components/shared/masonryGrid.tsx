@@ -1,14 +1,13 @@
 import React, { useMemo } from "react";
-import { View, Image } from "react-native";
-import { Card, Text } from "react-native-paper";
-import { useAppTheme } from "../../contexts/themeContext";
+import { View, Image, ImageSourcePropType } from "react-native";
+import { Card, Text, useTheme } from "react-native-paper";
 import { useDesign } from "../../contexts/designContext";
 
 type MasonryItem = {
   id: string;
   title: string;
   subtitle?: string;
-  image: string;
+  image: ImageSourcePropType;
 };
 
 type MasonryGridProps = {
@@ -16,7 +15,7 @@ type MasonryGridProps = {
 };
 
 export default function MasonryGrid({ data }: MasonryGridProps) {
-  const { theme } = useAppTheme();
+  const theme = useTheme();
   const { design } = useDesign();
 
   const { left, right } = useMemo(() => {
@@ -44,12 +43,12 @@ export default function MasonryGrid({ data }: MasonryGridProps) {
   const renderCard = (item: MasonryItem) => (
     <Card
       key={item.id}
+      elevation={3}
       style={{
         marginBottom: design.spacing.md,
         borderRadius: design.radii.lg,
         backgroundColor: theme.colors.surface,
       }}
-      elevation={3}
     >
       <View
         style={{
@@ -58,10 +57,11 @@ export default function MasonryGrid({ data }: MasonryGridProps) {
         }}
       >
         <Image
-          source={{ uri: item.image }}
+          source={item.image}
           style={{
             width: "100%",
-            aspectRatio: Math.random() * (1.4 - 0.8) + 0.8,
+            height: 180,
+            resizeMode: "cover",
           }}
         />
 
@@ -89,14 +89,8 @@ export default function MasonryGrid({ data }: MasonryGridProps) {
   );
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        gap: design.spacing.md,
-      }}
-    >
+    <View style={{ flexDirection: "row", gap: design.spacing.md }}>
       <View style={{ flex: 1 }}>{left.map(renderCard)}</View>
-
       <View style={{ flex: 1 }}>{right.map(renderCard)}</View>
     </View>
   );

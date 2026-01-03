@@ -9,7 +9,7 @@ import {
   useTheme,
   Divider,
 } from "react-native-paper";
-import { Music, MapPin, Heart } from "lucide-react-native";
+import { Music, MapPin, Heart, TrainFront, Clock } from "lucide-react-native";
 import { useDesign } from "../../contexts/designContext";
 
 type LibraryItem = {
@@ -22,11 +22,19 @@ type LibraryItem = {
   place?: string;
   image?: any;
   cover?: any;
-  tracks?: { id: string; title: string; artist: string; image?: any }[];
-  artist?: string;
+
+  transport?: {
+    mode: string;
+    lineName?: string;
+    operator?: string;
+    totalDurationMin?: number;
+    totalStops?: number;
+  };
+
   stops?: {
     station: string;
     vibe: string;
+    etaFromStartMin?: number;
     tracks: { id: string; title: string; artist: string }[];
   }[];
 };
@@ -46,7 +54,7 @@ export default function LibraryList({ data, type }: LibraryListProps) {
     try {
       setLoading(true);
       throw new Error("Remove failed");
-    } catch (e) {
+    } catch {
       Alert.alert("Action failed", "Unable to remove this item. Try again.");
     } finally {
       setLoading(false);
@@ -57,68 +65,114 @@ export default function LibraryList({ data, type }: LibraryListProps) {
   return (
     <>
       <View style={{ gap: design.spacing.md }}>
-        {data.map((item) => (
-          <Pressable
-            key={item.id}
-            onPress={() => setSelected(item)}
-            style={({ pressed }) => ({
-              flexDirection: "row",
-              alignItems: "center",
-              gap: design.spacing.md,
-              padding: design.spacing.md,
-              borderRadius: design.radii.xl,
-              backgroundColor: theme.colors.surface,
-              opacity: pressed ? 0.85 : 1,
-            })}
-          >
-            {(item.image || item.cover) && (
-              <Image
-                source={item.image ?? item.cover}
-                style={{
-                  width: type === "LIKED" ? 56 : 72,
-                  height: type === "LIKED" ? 56 : 72,
-                  borderRadius:
-                    type === "LIKED" ? design.radii.full : design.radii.lg,
-                }}
-              />
-            )}
+        {data.map((item) => {
+          const isJourney = type === "JOURNEYS";
 
-            <View style={{ flex: 1, gap: 2 }}>
-              <Text variant="titleSmall" numberOfLines={1}>
-                {item.title ?? item.name}
-              </Text>
+          return (
+            <Pressable
+              key={item.id}
+              onPress={() => setSelected(item)}
+              style={({ pressed }) => ({
+                padding: design.spacing.md,
+                borderRadius: design.radii["2xl"],
+                backgroundColor: theme.colors.surface,
+                gap: design.spacing.sm,
+                opacity: pressed ? 0.85 : 1,
+              })}
+            >
+              <View style={{ flexDirection: "row", gap: design.spacing.md }}>
+                {(item.cover || item.image) && (
+                  <Image
+                    source={item.cover ?? item.image}
+                    style={{
+                      width: 72,
+                      height: 72,
+                      borderRadius: design.radii.lg,
+                    }}
+                  />
+                )}
 
-              {(item.artist || item.subtitle || item.genre) && (
-                <Text
-                  variant="bodySmall"
-                  numberOfLines={1}
-                  style={{ color: theme.colors.onSurfaceVariant }}
-                >
-                  {item.artist ?? item.subtitle ?? item.genre}
-                </Text>
-              )}
+                <View style={{ flex: 1, gap: 4 }}>
+                  <Text variant="titleSmall" numberOfLines={1}>
+                    {item.title ?? item.name}
+                  </Text>
 
-              {type !== "LIKED" && (
-                <View style={{ flexDirection: "row", gap: 6, marginTop: 4 }}>
-                  {item.place && (
-                    <Chip compact icon={() => <MapPin size={12} />}>
-                      {item.place}
-                    </Chip>
+                  {item.subtitle && (
+                    <Text
+                      variant="bodySmall"
+                      numberOfLines={1}
+                      style={{ color: theme.colors.onSurfaceVariant }}
+                    >
+                      {item.subtitle}
+                    </Text>
                   )}
-                  {item.trackCount !== undefined && (
-                    <Chip compact icon={() => <Music size={12} />}>
-                      {item.trackCount} tracks
+
+                  {isJourney && (
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        flexWrap: "wrap",
+                        gap: 6,
+                        marginTop: 4,
+                      }}
+                    >
+                      {item.place && (
+                        <Chip compact icon={() => <MapPin size={12} />}>
+                          {item.place}
+                        </Chip>
+                      )}
+
+                      {item.transport?.mode && (
+                        <Chip compact icon={() => <TrainFront size={12} />}>
+                          {item.transport.mode}
+                          {item.transport.lineName
+                            ? ` · ${item.transport.lineName}`
+                            : ""}
+                        </Chip>
+                      )}
+
+                      {item.transport?.totalDurationMin && (
+                        <Chip compact icon={() => <Clock size={12} />}>
+                          {item.transport.totalDurationMin} min
+                        </Chip>
+                      )}
+
+                      {item.trackCount !== undefined && (
+                        <Chip compact icon={() => <Music size={12} />}>
+                          {item.trackCount} tracks
+                        </Chip>
+                      )}
+                    </View>
+                  )}
+                </View>
+
+                {type === "LIKED" && (
+                  <Heart size={18} color={theme.colors.primary} />
+                )}
+              </View>
+
+              {isJourney && item.stops && (
+                <View
+                  style={{
+                    flexDirection: "row",
+                    flexWrap: "wrap",
+                    gap: 6,
+                    marginTop: design.spacing.xs,
+                  }}
+                >
+                  {item.stops.slice(0, 3).map((stop) => (
+                    <Chip key={stop.station} compact>
+                      {stop.station}
                     </Chip>
+                  ))}
+                  {item.stops.length > 3 && (
+                    <Chip compact>+{item.stops.length - 3} more</Chip>
                   )}
                 </View>
               )}
-            </View>
-
-            {type === "LIKED" && (
-              <Heart size={18} color={theme.colors.primary} />
-            )}
-          </Pressable>
-        ))}
+            </Pressable>
+          );
+        })}
       </View>
 
       <Portal>
@@ -138,9 +192,9 @@ export default function LibraryList({ data, type }: LibraryListProps) {
                 gap: design.spacing.md,
               }}
             >
-              {(selected.image || selected.cover) && (
+              {(selected.cover || selected.image) && (
                 <Image
-                  source={selected.image ?? selected.cover}
+                  source={selected.cover ?? selected.image}
                   style={{
                     width: "100%",
                     height: 180,
@@ -153,15 +207,71 @@ export default function LibraryList({ data, type }: LibraryListProps) {
                 <Text variant="titleMedium">
                   {selected.title ?? selected.name}
                 </Text>
-                {(selected.artist || selected.subtitle || selected.genre) && (
+                {selected.subtitle && (
                   <Text
                     variant="bodySmall"
                     style={{ color: theme.colors.onSurfaceVariant }}
                   >
-                    {selected.artist ?? selected.subtitle ?? selected.genre}
+                    {selected.subtitle}
                   </Text>
                 )}
               </View>
+
+              {type === "JOURNEYS" && selected.transport && (
+                <View
+                  style={{ flexDirection: "row", flexWrap: "wrap", gap: 6 }}
+                >
+                  <Chip icon={() => <TrainFront size={12} />}>
+                    {selected.transport.mode}
+                    {selected.transport.lineName
+                      ? ` · ${selected.transport.lineName}`
+                      : ""}
+                  </Chip>
+                  {selected.transport.totalDurationMin && (
+                    <Chip icon={() => <Clock size={12} />}>
+                      {selected.transport.totalDurationMin} min
+                    </Chip>
+                  )}
+                  {selected.transport.totalStops && (
+                    <Chip icon={() => <MapPin size={12} />}>
+                      {selected.transport.totalStops} stops
+                    </Chip>
+                  )}
+                </View>
+              )}
+
+              {type === "JOURNEYS" && selected.stops && (
+                <>
+                  <Divider />
+                  <View style={{ gap: design.spacing.md }}>
+                    {selected.stops.map((stop) => (
+                      <View key={stop.station} style={{ gap: 4 }}>
+                        <Text variant="titleSmall">
+                          {stop.station}
+                          {stop.etaFromStartMin !== undefined
+                            ? ` · ${stop.etaFromStartMin} min`
+                            : ""}
+                        </Text>
+                        <Text
+                          variant="bodySmall"
+                          style={{ color: theme.colors.onSurfaceVariant }}
+                        >
+                          {stop.vibe}
+                        </Text>
+                        {stop.tracks.map((t) => (
+                          <Text
+                            key={t.id}
+                            variant="bodySmall"
+                            numberOfLines={1}
+                          >
+                            {t.title} · {t.artist}
+                          </Text>
+                        ))}
+                      </View>
+                    ))}
+                  </View>
+                </>
+              )}
 
               <Divider />
 
@@ -171,7 +281,7 @@ export default function LibraryList({ data, type }: LibraryListProps) {
                   style={{ flex: 1 }}
                   onPress={() => setSelected(null)}
                 >
-                  Cancel
+                  Close
                 </Button>
                 <Button
                   mode="contained"

@@ -33,7 +33,7 @@ export default function Journey() {
         scrollEventThrottle={16}
       >
         <SectionHeader
-          title="Journeys"
+          title="Journal"
           subtitle="Capture memories tied to music and place"
           icon={MapPin}
           rightSlot={

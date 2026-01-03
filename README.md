@@ -78,8 +78,6 @@ Music-powered travel companion built with **Expo**, **React Native**, and **expo
 
 traveltune/
 ├─ app/
-│  ├─ (modals)/
-│  │  └─ _layout.tsx
 │  ├─ (tabs)/
 │  │  ├─ a/
 │  │  │  ├─ _layout.tsx

@@ -35,14 +35,14 @@ export default function useDiscover() {
       items: [
         {
           id: "airport-klia",
-          title: "Morning Commute",
+          title: "Airport Feels",
           subtitle: "Calm departures, late-night lounges",
           avatarIcon: "music",
           image: require("../assets/images/klia.jpg"),
         },
         {
           id: "north-south-highway",
-          title: "Highway Drive",
+          title: "Morning Commute",
           subtitle: "Long stretches, steady rhythms",
           avatarIcon: "music",
           image: require("../assets/images/highway.jpg"),

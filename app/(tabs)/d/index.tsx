@@ -15,7 +15,7 @@ export default function Library() {
   const { design } = useDesign();
   const { journeyLibraries, playlists, artists, likedSongs } = useLibrary();
   const [enabled, setEnabled] = useState(false);
-  const [tab, setTab] = useState<LibraryTab>("JOURNEYS");
+  const [tab, setTab] = useState<LibraryTab>("LIKED");
 
   const data = useMemo(() => {
     switch (tab) {

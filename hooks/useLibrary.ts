@@ -12,6 +12,22 @@ export type LibraryTrack = {
   image?: ImageSourcePropType;
 };
 
+export type JourneyStop = {
+  station: string;
+  vibe: string;
+  etaFromStartMin?: number;
+  tracks: LibraryTrack[];
+};
+
+export type JourneyTransport = {
+  mode: "LRT" | "MRT" | "KTM" | "BUS" | "WALK";
+  lineName?: string;
+  operator?: string;
+  color?: string;
+  totalDurationMin?: number;
+  totalStops?: number;
+};
+
 export type JourneyLibraryItem = {
   id: string;
   journeyId: string;
@@ -20,11 +36,10 @@ export type JourneyLibraryItem = {
   place: string;
   cover: ImageSourcePropType;
   trackCount: number;
-  stops: {
-    station: string;
-    vibe: string;
-    tracks: LibraryTrack[];
-  }[];
+
+  transport: JourneyTransport;
+
+  stops: JourneyStop[];
 };
 
 export type PlaylistItem = {
@@ -56,15 +71,26 @@ export default function useLibrary() {
     {
       id: "journey-lib-kl-heritage",
       journeyId: "journey-kl-heritage",
-      title: "KL Heritage Line",
-      subtitle: "Captured along the commute",
+      title: "KL Urban Line",
+      subtitle: "Music synced with your commute",
       place: "KL Sentral → Batu Caves",
       trackCount: 8,
       cover: require("../assets/images/kl.jpg"),
+
+      transport: {
+        mode: "LRT",
+        lineName: "Kelana Jaya Line",
+        operator: "Rapid KL",
+        color: "#E11D48",
+        totalDurationMin: 35,
+        totalStops: 4,
+      },
+
       stops: [
         {
           station: "KL Sentral",
           vibe: "Urban · Busy",
+          etaFromStartMin: 0,
           tracks: [
             {
               id: "trk-1",
@@ -78,6 +104,7 @@ export default function useLibrary() {
         {
           station: "Pasar Seni",
           vibe: "Trendy · Aesthetic",
+          etaFromStartMin: 8,
           tracks: [
             {
               id: "trk-2",
@@ -88,20 +115,41 @@ export default function useLibrary() {
             },
           ],
         },
+        {
+          station: "Titiwangsa",
+          vibe: "Calm · Transition",
+          etaFromStartMin: 18,
+          tracks: [],
+        },
+        {
+          station: "Batu Caves",
+          vibe: "Cultural · Iconic",
+          etaFromStartMin: 35,
+          tracks: [],
+        },
       ],
     },
+
     {
       id: "journey-lib-penang",
       journeyId: "journey-penang-day",
       title: "Penang Day Walk",
-      subtitle: "Street food & murals",
+      subtitle: "Walkable heritage & street sounds",
       place: "George Town",
       trackCount: 5,
       cover: require("../assets/images/penang.jpeg"),
+
+      transport: {
+        mode: "WALK",
+        totalDurationMin: 90,
+        totalStops: 3,
+      },
+
       stops: [
         {
           station: "Armenian Street",
           vibe: "Heritage · Calm",
+          etaFromStartMin: 0,
           tracks: [
             {
               id: "trk-3",
@@ -111,6 +159,18 @@ export default function useLibrary() {
               image: require("../assets/images/penang.jpeg"),
             },
           ],
+        },
+        {
+          station: "Khoo Kongsi",
+          vibe: "Cultural · Historic",
+          etaFromStartMin: 30,
+          tracks: [],
+        },
+        {
+          station: "Chew Jetty",
+          vibe: "Seaside · Nostalgic",
+          etaFromStartMin: 60,
+          tracks: [],
         },
       ],
     },
@@ -165,13 +225,27 @@ export default function useLibrary() {
       ],
     },
     {
-      id: "midnight-collective",
+      id: "erra-faz",
       name: "Erra Fazira",
       genre: "Traditional · Pop",
       image: require("../assets/images/erra.jpeg"),
       popularTracks: [
         {
           id: "ar-2",
+          title: "After Dark",
+          artist: "Midnight Collective",
+          image: require("../assets/images/night.jpg"),
+        },
+      ],
+    },
+    {
+      id: "anita",
+      name: "Anita Sarawak",
+      genre: "Traditional · Pop",
+      image: require("../assets/images/anita.jpeg"),
+      popularTracks: [
+        {
+          id: "ar-3",
           title: "After Dark",
           artist: "Midnight Collective",
           image: require("../assets/images/night.jpg"),
@@ -189,27 +263,9 @@ export default function useLibrary() {
     },
     {
       id: "liked-2",
-      title: "Pulang",
-      artist: "Insomniacks",
-      image: require("../assets/images/erra.jpeg"),
-    },
-    {
-      id: "liked-3",
-      title: "Sampai Syurga",
-      artist: "Faizal Tahir",
-      image: require("../assets/images/erra.jpeg"),
-    },
-    {
-      id: "liked-4",
-      title: "Angan",
-      artist: "Masdo",
-      image: require("../assets/images/erra.jpeg"),
-    },
-    {
-      id: "liked-5",
-      title: "Hanya Rindu",
-      artist: "Andmesh Kamaleng",
-      image: require("../assets/images/erra.jpeg"),
+      title: "Wau Bulan",
+      artist: "Lagu Rakyat Kelantan",
+      image: require("../assets/images/kel.jpg"),
     },
   ];
 

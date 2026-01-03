@@ -3,7 +3,9 @@ import { View, Image } from "react-native";
 import MapView, { Marker, Polyline } from "react-native-maps";
 import { Text, useTheme } from "react-native-paper";
 import { Music2, MapPin } from "lucide-react-native";
+
 import MapHeader from "../../../components/b/header";
+import MapPill from "../../../components/b/pill";
 import { useMapsContext } from "../../../contexts/mapsContext";
 
 export default function MapScreen() {
@@ -38,13 +40,16 @@ export default function MapScreen() {
 
   return (
     <View style={{ flex: 1 }}>
+      {/* Map */}
       <MapView ref={mapRef} style={{ flex: 1 }} initialRegion={initialRegion}>
+        {/* Full route */}
         <Polyline
           coordinates={activeRoute.polyline}
           strokeColor={theme.colors.outlineVariant}
           strokeWidth={3}
         />
 
+        {/* Progressed route */}
         {activePolyline.length > 1 && (
           <Polyline
             coordinates={activePolyline}
@@ -53,6 +58,7 @@ export default function MapScreen() {
           />
         )}
 
+        {/* Stations */}
         {activeRoute.stations.map((station, index) => {
           const isActive = index === activeStationIndex;
 
@@ -63,7 +69,6 @@ export default function MapScreen() {
                 latitude: station.latitude,
                 longitude: station.longitude,
               }}
-              anchor={{ x: 0.5, y: 0.5 }}
               zIndex={isActive ? 1000 : 1}
               onPress={() => selectStation(index)}
             >
@@ -94,16 +99,12 @@ export default function MapScreen() {
                   />
                 </View>
 
-                {/* Detail card below marker */}
+                {/* Active station card */}
                 {isActive && (
                   <View
                     style={{
                       marginTop: 8,
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 10,
-                      paddingVertical: 10,
-                      paddingHorizontal: 12,
+                      padding: 12,
                       borderRadius: 16,
                       backgroundColor: theme.colors.surface,
                       elevation: 8,
@@ -114,65 +115,66 @@ export default function MapScreen() {
                       minWidth: 260,
                     }}
                   >
-                    <Image
-                      source={station.albumCover}
-                      style={{
-                        width: 44,
-                        height: 44,
-                        borderRadius: 22,
-                      }}
-                    />
-
-                    <View style={{ flex: 1, gap: 4 }}>
-                      <Text
-                        numberOfLines={1}
+                    <View style={{ flexDirection: "row", gap: 12 }}>
+                      <Image
+                        source={station.albumCover}
                         style={{
-                          fontWeight: "600",
-                          color: theme.colors.onSurface,
+                          width: 44,
+                          height: 44,
+                          borderRadius: 22,
                         }}
-                      >
-                        {station.name}
-                      </Text>
+                      />
 
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 4,
-                        }}
-                      >
-                        <MapPin
-                          size={12}
-                          color={theme.colors.onSurfaceVariant}
-                        />
+                      <View style={{ flex: 1, gap: 4 }}>
                         <Text
                           numberOfLines={1}
                           style={{
-                            fontSize: 12,
-                            color: theme.colors.onSurfaceVariant,
+                            fontWeight: "600",
+                            color: theme.colors.onSurface,
                           }}
                         >
-                          {station.vibe}
+                          {station.name}
                         </Text>
-                      </View>
 
-                      <View
-                        style={{
-                          flexDirection: "row",
-                          alignItems: "center",
-                          gap: 4,
-                        }}
-                      >
-                        <Music2 size={12} color={theme.colors.primary} />
-                        <Text
-                          numberOfLines={1}
+                        <View
                           style={{
-                            fontSize: 12,
-                            color: theme.colors.onSurfaceVariant,
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 4,
                           }}
                         >
-                          {station.song.title} · {station.song.artist}
-                        </Text>
+                          <MapPin
+                            size={12}
+                            color={theme.colors.onSurfaceVariant}
+                          />
+                          <Text
+                            style={{
+                              fontSize: 12,
+                              color: theme.colors.onSurfaceVariant,
+                            }}
+                          >
+                            {station.vibe}
+                          </Text>
+                        </View>
+
+                        <View
+                          style={{
+                            flexDirection: "row",
+                            alignItems: "center",
+                            gap: 4,
+                          }}
+                        >
+                          <Music2 size={12} color={theme.colors.primary} />
+                          <Text
+                            numberOfLines={1}
+                            style={{
+                              fontSize: 12,
+                              color: theme.colors.onSurfaceVariant,
+                            }}
+                          >
+                            {station.song.title} · {station.song.artist}
+                          </Text>
+                        </View>
                       </View>
                     </View>
                   </View>
@@ -190,8 +192,21 @@ export default function MapScreen() {
           left: 0,
           right: 0,
         }}
+        pointerEvents="box-none"
       >
         <MapHeader />
+      </View>
+
+      <View
+        style={{
+          position: "absolute",
+          left: 0,
+          right: 0,
+          bottom: 130,
+        }}
+        pointerEvents="box-none"
+      >
+        <MapPill />
       </View>
     </View>
   );
