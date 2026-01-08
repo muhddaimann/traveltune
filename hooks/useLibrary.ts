@@ -252,6 +252,48 @@ export default function useLibrary() {
         },
       ],
     },
+        {
+      id: "nurhaliza",
+      name: "P. Ramlee",
+      genre: "Traditional",
+      image: require("../assets/images/p.jpeg"),
+      popularTracks: [
+        {
+          id: "ar-1",
+          title: "Cindai",
+          artist: "Siti Nurhaliza",
+          image: require("../assets/images/ct.jpeg"),
+        },
+      ],
+    },
+    {
+      id: "faz",
+      name: "Jaclyn",
+      genre: "Pop",
+      image: require("../assets/images/jac.jpg"),
+      popularTracks: [
+        {
+          id: "ar-2",
+          title: "After Dark",
+          artist: "Midnight Collective",
+          image: require("../assets/images/night.jpg"),
+        },
+      ],
+    },
+    {
+      id: "ita",
+      name: "Datuk Sudirman",
+      genre: "Jazz",
+      image: require("../assets/images/sud.jpeg"),
+      popularTracks: [
+        {
+          id: "ar-3",
+          title: "After Dark",
+          artist: "Midnight Collective",
+          image: require("../assets/images/night.jpg"),
+        },
+      ],
+    },
   ];
 
   const likedSongs: LibraryTrack[] = [
@@ -266,6 +308,30 @@ export default function useLibrary() {
       title: "Wau Bulan",
       artist: "Lagu Rakyat Kelantan",
       image: require("../assets/images/kel.jpg"),
+    },
+    {
+      id: "liked-3",
+      title: "Standing in the eyes",
+      artist: "Ella",
+      image: require("../assets/images/ell.jpeg"),
+    },
+    {
+      id: "liked-4",
+      title: "Dendang Perantau",
+      artist: "P. Ramlee",
+      image: require("../assets/images/p.jpeg"),
+    },
+    {
+      id: "liked-5",
+      title: "Balik Kampung",
+      artist: "Datuk Sudirman",
+      image: require("../assets/images/sud.jpeg"),
+    },
+    {
+      id: "liked-6",
+      title: "Gemilang",
+      artist: "Jaclyn",
+      image: require("../assets/images/jac.jpg"),
     },
   ];
 
