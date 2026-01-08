@@ -3,7 +3,7 @@ import { View, Image, TouchableOpacity } from "react-native";
 import { Text, useTheme } from "react-native-paper";
 import { Play, Pause, Heart } from "lucide-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { useAudioPlayer } from "expo-audio";
+import { useAudioPlayer, useAudioPlayerStatus } from "expo-audio";
 import { useMusic } from "../../contexts/musicContext";
 import { useDesign } from "../../contexts/designContext";
 
@@ -14,21 +14,41 @@ export default function MiniPlayer() {
   const { currentTrack, isPlaying, pause, resume } = useMusic();
   const [isFav, setIsFav] = useState(false);
 
-  // ✅ Hook is called ONCE, at top level
   const player = useAudioPlayer(currentTrack?.song.sound);
+  const status = useAudioPlayerStatus(player);
 
-  // 🔁 Change track when station changes
+  // 🔊 Load & play when track changes
   useEffect(() => {
     if (!currentTrack) return;
     player.replace(currentTrack.song.sound);
     player.play();
+    resume();
   }, [currentTrack]);
 
-  // ⏯ Sync play / pause
+  // 🔁 Keep context in sync with real playback
   useEffect(() => {
-    if (!currentTrack) return;
-    isPlaying ? player.play() : player.pause();
-  }, [isPlaying]);
+    if (!status) return;
+    if (!status.playing && isPlaying) {
+      pause();
+    }
+  }, [status?.playing]);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      player.pause();
+      pause();
+    } else {
+      if (
+        status?.isLoaded &&
+        !status.playing &&
+        status.currentTime >= status.duration
+      ) {
+        player.seekTo(0);
+      }
+      player.play();
+      resume();
+    }
+  };
 
   if (!currentTrack) return null;
 
@@ -77,7 +97,7 @@ export default function MiniPlayer() {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={isPlaying ? pause : resume}
+          onPress={handlePlayPause}
           style={{
             width: 36,
             height: 36,

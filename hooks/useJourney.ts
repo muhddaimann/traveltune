@@ -40,31 +40,31 @@ export default function useJourney() {
       image: require("../assets/images/kl.jpg"),
       memoryLane: {
         music: {
-          title: "Golden Steps",
-          artist: "Local Ambient",
+          title: "KL Cityscape",
+          artist: "Tiring but exciting. Jwanji pergi lagi",
         },
         moments: [
           {
             id: "kl-m1",
-            image: require("../assets/images/kl1.jpg"),
+            image: require("../assets/images/kl.jpg"),
             idea: "Morning starts at KL Sentral",
             sound: require("../assets/sounds/ayam.mp3"),
           },
           {
             id: "kl-m2",
-            image: require("../assets/images/kl2.jpg"),
+            image: require("../assets/images/cm.jpg"),
             idea: "Trains, crowds, and city rhythm",
             sound: require("../assets/sounds/cindai.mp3"),
           },
           {
             id: "kl-m3",
-            image: require("../assets/images/kl3.jpg"),
+            image: require("../assets/images/titi.jpeg"),
             idea: "A quiet pause between stops",
             sound: require("../assets/sounds/ewa.mp3"),
           },
           {
             id: "kl-m4",
-            image: require("../assets/images/kl4.jpg"),
+            image: require("../assets/images/batu.jpg"),
             idea: "Arrival at Batu Caves",
             sound: require("../assets/sounds/ting.mp3"),
           },
@@ -82,14 +82,14 @@ export default function useJourney() {
       image: require("../assets/images/penang.jpeg"),
       memoryLane: {
         music: {
-          title: "Old Town Echoes",
-          artist: "Indie MY",
+          title: "Jalan Jalan Penang",
+          artist: "Jalan jauh, perut happy",
         },
         moments: [
           {
             id: "pg-m1",
             image: require("../assets/images/penang1.jpg"),
-            idea: "Walking through heritage streets",
+            idea: "Walking through the sunsets",
             sound: require("../assets/sounds/cindai.mp3"),
           },
           {
@@ -101,7 +101,7 @@ export default function useJourney() {
           {
             id: "pg-m3",
             image: require("../assets/images/penang3.jpg"),
-            idea: "Coffee breaks in old cafés",
+            idea: "Spiritual feels in temple ",
             sound: require("../assets/sounds/ewa.mp3"),
           },
           {
@@ -115,7 +115,7 @@ export default function useJourney() {
     },
     {
       id: "journey-langkawi",
-      title: "Rembau Getaway",
+      title: "Langkawi Getaway",
       subtitle: "Sea breeze & slow sunsets",
       date: "02 Aug 2025",
       status: "PAUSED",
@@ -124,32 +124,32 @@ export default function useJourney() {
       image: require("../assets/images/rembau.jpg"),
       memoryLane: {
         music: {
-          title: "Island Dusk",
-          artist: "Ambient MY",
+          title: "Langkawi Escape",
+          artist: "Laut cantik, masalah hilang",
         },
         moments: [
           {
             id: "rm-m1",
-            image: require("../assets/images/kl1.jpg"),
-            idea: "Sea, sun, and sand",
+            image: require("../assets/images/li.jpeg"),
+            idea: "Sea, sun and sand",
             sound: require("../assets/sounds/ting.mp3"),
           },
           {
             id: "rm-m2",
-            image: require("../assets/images/kl2.jpg"),
-            idea: "The sound of the waves",
+            image: require("../assets/images/li2.jpg"),
+            idea: "The thrill of the height",
             sound: require("../assets/sounds/ayam.mp3"),
           },
           {
             id: "rm-m3",
-            image: require("../assets/images/kl3.jpg"),
-            idea: "A beautiful sunset",
+            image: require("../assets/images/li3.jpg"),
+            idea: "A beautiful corals",
             sound: require("../assets/sounds/ewa.mp3"),
           },
           {
             id: "rm-m4",
-            image: require("../assets/images/kl4.jpg"),
-            idea: "Good times",
+            image: require("../assets/images/li4.jpeg"),
+            idea: "Good time Good Nyumz",
             sound: require("../assets/sounds/cindai.mp3"),
           },
         ],

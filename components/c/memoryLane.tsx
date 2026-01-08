@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { View, Image, Animated } from "react-native";
 import { Modal, Portal, Text, useTheme } from "react-native-paper";
+import { Music2 } from "lucide-react-native";
 import { useAudioPlayer } from "expo-audio";
 import { MemoryLane } from "../../hooks/useJourney";
 import { useDesign } from "../../contexts/designContext";
@@ -47,25 +48,21 @@ export default function MemoryLaneComponent({
   }, [visible, memoryLane]);
 
   useEffect(() => {
-    let interval: NodeJS.Timeout;
-    if (visible && memoryLane) {
-      interval = setInterval(() => {
-        setCurrentIndex((prevIndex) => {
-          const nextIndex = (prevIndex + 1) % memoryLane.moments.length;
-          player.replace(memoryLane.moments[nextIndex].sound);
-          player.play();
-          return nextIndex;
-        });
-      }, MOMENT_DURATION);
-    }
-    return () => {
-      clearInterval(interval);
-    };
+    if (!visible || !memoryLane) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => {
+        const next = (prev + 1) % memoryLane.moments.length;
+        player.replace(memoryLane.moments[next].sound);
+        player.play();
+        return next;
+      });
+    }, MOMENT_DURATION);
+
+    return () => clearInterval(interval);
   }, [visible, memoryLane]);
 
-  if (!memoryLane) {
-    return null;
-  }
+  if (!memoryLane) return null;
 
   const currentMoment = memoryLane.moments[currentIndex];
 
@@ -75,30 +72,96 @@ export default function MemoryLaneComponent({
         visible={visible}
         onDismiss={onDismiss}
         contentContainerStyle={{
-          margin: design.spacing.lg,
-          borderRadius: design.radii.xl,
+          marginHorizontal: design.spacing.lg,
+          marginVertical: design.spacing.xl,
+          borderRadius: design.radii["2xl"],
           backgroundColor: theme.colors.surface,
           padding: design.spacing.lg,
+          elevation: 8,
         }}
       >
-        <View style={{ gap: design.spacing.md, alignItems: "center" }}>
-          <Text variant="titleLarge">{memoryLane.music.title}</Text>
-          <Text variant="bodyMedium" style={{ color: theme.colors.onSurfaceVariant }}>
-            {memoryLane.music.artist}
-          </Text>
-          <Animated.View style={{ opacity: fadeAnim }}>
+        <View
+          style={{
+            alignItems: "center",
+            gap: design.spacing.sm,
+          }}
+        >
+          <View
+            style={{
+              alignItems: "center",
+              gap: 4,
+              marginBottom: design.spacing.sm,
+            }}
+          >
+            <Music2 size={20} color={theme.colors.primary} />
+            <Text variant="titleMedium">{memoryLane.music.title}</Text>
+            <Text
+              variant="bodySmall"
+              style={{ color: theme.colors.onSurfaceVariant }}
+            >
+              {memoryLane.music.artist}
+            </Text>
+          </View>
+
+          <Animated.View
+            style={{
+              opacity: fadeAnim,
+              shadowColor: "#000",
+              shadowOpacity: 0.18,
+              shadowRadius: 20,
+              shadowOffset: { width: 0, height: 10 },
+            }}
+          >
             <Image
               source={currentMoment.image}
               style={{
-                width: 300,
-                height: 300,
-                borderRadius: design.radii.lg,
+                width: 280,
+                height: 280,
+                borderRadius: design.radii.xl,
               }}
             />
           </Animated.View>
-          <Text variant="titleMedium" style={{ marginTop: design.spacing.md }}>
-            {currentMoment.idea}
-          </Text>
+
+          <View
+            style={{
+              marginTop: design.spacing.md,
+              paddingHorizontal: design.spacing.md,
+              paddingVertical: design.spacing.sm,
+              borderRadius: design.radii.lg,
+              backgroundColor: theme.colors.surfaceVariant,
+            }}
+          >
+            <Text
+              variant="bodyMedium"
+              style={{ textAlign: "center", fontWeight: "500" }}
+            >
+              {currentMoment.idea}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              gap: 6,
+              marginTop: design.spacing.md,
+            }}
+          >
+            {memoryLane.moments.map((_, i) => (
+              <View
+                key={i}
+                style={{
+                  width: i === currentIndex ? 12 : 6,
+                  height: 6,
+                  borderRadius: 3,
+                  backgroundColor:
+                    i === currentIndex
+                      ? theme.colors.primary
+                      : theme.colors.outlineVariant,
+                }}
+              />
+            ))}
+          </View>
         </View>
       </Modal>
     </Portal>

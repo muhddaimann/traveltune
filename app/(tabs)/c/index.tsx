@@ -16,7 +16,7 @@ export default function Journey() {
   const { updateByOffset } = useTabsUi();
   const router = useRouter();
   const { journeys } = useJourney();
-  const [enabled, setEnabled] = useState(false);
+  const [enabled, setEnabled] = useState(true);
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -33,7 +33,7 @@ export default function Journey() {
         scrollEventThrottle={16}
       >
         <SectionHeader
-          title="Journal"
+          title="Memory Lane"
           subtitle="Capture memories tied to music and place"
           icon={MapPin}
           rightSlot={

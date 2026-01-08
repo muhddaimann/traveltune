@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { ScrollView, Image, Animated, Easing } from "react-native";
+import { ScrollView, Image, Animated, Easing, View } from "react-native";
 import { Text } from "react-native-paper";
 import { useAppTheme } from "../contexts/themeContext";
 import { useDesign } from "../contexts/designContext";
@@ -42,7 +42,7 @@ export default function Welcome() {
       contentContainerStyle={{
         flexGrow: 1,
         alignItems: "center",
-        justifyContent: "center",
+        paddingTop: design.spacing["2xl"]*7,
         padding: design.spacing.lg,
         backgroundColor: theme.colors.background,
       }}
@@ -65,15 +65,28 @@ export default function Welcome() {
           }}
         />
 
-        <Text
-          variant="headlineMedium"
-          style={{
-            color: theme.colors.onBackground,
-            textAlign: "center",
-          }}
-        >
-          Welcome back
-        </Text>
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: theme.colors.primary,
+              fontWeight: "700",
+              letterSpacing: 0.4,
+            }}
+          >
+            Travel
+          </Text>
+          <Text
+            variant="headlineLarge"
+            style={{
+              color: theme.colors.secondary,
+              fontWeight: "700",
+              letterSpacing: 0.4,
+            }}
+          >
+            Tune
+          </Text>
+        </View>
 
         <Text
           variant="bodyLarge"
@@ -83,7 +96,7 @@ export default function Welcome() {
             maxWidth: 300,
           }}
         >
-          Tuning your journeys and memories
+          Tune your journeys and memories
         </Text>
       </Animated.View>
     </ScrollView>

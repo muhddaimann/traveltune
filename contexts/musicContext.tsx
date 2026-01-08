@@ -26,10 +26,11 @@ export const MusicProvider = ({ children }: { children: ReactNode }) => {
       value={{
         currentTrack,
         isPlaying,
+
         playTrack: (track) => {
           setCurrentTrack(track);
-          setIsPlaying(true);
         },
+
         pause: () => setIsPlaying(false),
         resume: () => setIsPlaying(true),
       }}
