@@ -3,7 +3,7 @@ import { View, Image, ImageSourcePropType, Pressable } from "react-native";
 import { Card, Text, useTheme } from "react-native-paper";
 import { Headphones, MapPin, PlayCircle } from "lucide-react-native";
 import { useDesign } from "../../contexts/designContext";
-import useJourney, { JourneyItem } from "../../hooks/useJourney";
+import { JourneyItem } from "../../hooks/useJourney";
 import MemoryLaneComponent from "./memoryLane";
 
 type JournalListProps = {

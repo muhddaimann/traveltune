@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, ReactNode } from "react";
-import { Station } from "../hooks/useMaps"; // Assuming Station type is exported from useMaps
+import { Station } from "../hooks/useMaps";
 
 type MusicContextType = {
   isPlaying: boolean;
@@ -12,46 +12,29 @@ type MusicContextType = {
 const MusicContext = createContext<MusicContextType | undefined>(undefined);
 
 export const useMusic = () => {
-  const context = useContext(MusicContext);
-  if (!context) {
-    throw new Error("useMusic must be used within a MusicProvider");
-  }
-  return context;
+  const ctx = useContext(MusicContext);
+  if (!ctx) throw new Error("useMusic must be used within MusicProvider");
+  return ctx;
 };
 
-type MusicProviderProps = {
-  children: ReactNode;
-};
-
-export const MusicProvider = ({ children }: MusicProviderProps) => {
+export const MusicProvider = ({ children }: { children: ReactNode }) => {
   const [currentTrack, setCurrentTrack] = useState<Station | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  // Simulate playback for now
-  const playTrack = (track: Station) => {
-    setCurrentTrack(track);
-    setIsPlaying(true);
-  };
-
-  const pause = () => {
-    setIsPlaying(false);
-  };
-
-  const resume = () => {
-    if (currentTrack) {
-      setIsPlaying(true);
-    }
-  };
-
-  const value = {
-    isPlaying,
-    currentTrack,
-    playTrack,
-    pause,
-    resume,
-  };
-
   return (
-    <MusicContext.Provider value={value}>{children}</MusicContext.Provider>
+    <MusicContext.Provider
+      value={{
+        currentTrack,
+        isPlaying,
+        playTrack: (track) => {
+          setCurrentTrack(track);
+          setIsPlaying(true);
+        },
+        pause: () => setIsPlaying(false),
+        resume: () => setIsPlaying(true),
+      }}
+    >
+      {children}
+    </MusicContext.Provider>
   );
 };

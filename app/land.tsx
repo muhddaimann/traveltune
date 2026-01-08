@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { ScrollView, View, Animated, Easing } from "react-native";
+import { ScrollView, View, Animated, Easing, Image } from "react-native";
 import { Text, Button } from "react-native-paper";
-import { Compass } from "lucide-react-native";
 import { router } from "expo-router";
 import { useAppTheme } from "../contexts/themeContext";
 import { useDesign } from "../contexts/designContext";
@@ -53,29 +52,20 @@ export default function Land() {
       <Animated.View
         style={{
           alignItems: "center",
-          gap: design.spacing.sm,
+          gap: design.spacing.md,
           opacity,
           transform: [{ translateY }, { scale }],
         }}
       >
-        <View
+        <Image
+          source={require("../assets/icon.png")}
           style={{
-            width: 72,
-            height: 72,
-            borderRadius: 36,
-            backgroundColor: theme.colors.primaryContainer,
-            alignItems: "center",
-            justifyContent: "center",
+            width: 120,
+            height: 120,
+            resizeMode: "contain",
             marginBottom: design.spacing.sm,
-            shadowColor: theme.colors.primary,
-            shadowOpacity: 0.25,
-            shadowRadius: 18,
-            shadowOffset: { width: 0, height: 8 },
-            elevation: 8,
           }}
-        >
-          <Compass size={30} color={theme.colors.onPrimaryContainer} />
-        </View>
+        />
 
         <Text
           variant="headlineLarge"
@@ -89,7 +79,7 @@ export default function Land() {
           style={{
             color: theme.colors.onSurfaceVariant,
             textAlign: "center",
-            maxWidth: 300,
+            maxWidth: 320,
             marginBottom: design.spacing.xl,
           }}
         >

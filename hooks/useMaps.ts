@@ -21,6 +21,7 @@ export type Station = {
   song: {
     title: string;
     artist: string;
+    sound: any;
   };
 };
 
@@ -86,6 +87,7 @@ export default function useMaps() {
             song: {
               title: "Cindai",
               artist: "Siti Nurhaliza",
+              sound: require("../assets/sounds/cindai.mp3"),
             },
           },
           {
@@ -101,6 +103,7 @@ export default function useMaps() {
             song: {
               title: "Tinggi Tinggih",
               artist: "Anita Sarawak",
+              sound: require("../assets/sounds/ayam.mp3"),
             },
           },
           {
@@ -116,6 +119,7 @@ export default function useMaps() {
             song: {
               title: "Ewa Bule",
               artist: "Lagu Rakyat Kelantan",
+              sound: require("../assets/sounds/ewa.mp3"),
             },
           },
           {
@@ -131,6 +135,7 @@ export default function useMaps() {
             song: {
               title: "Tinggi Tinggi Gunung Kinabalu",
               artist: "Lagu Rakyat Sabah",
+              sound: require("../assets/sounds/ting.mp3"),
             },
           },
         ],
